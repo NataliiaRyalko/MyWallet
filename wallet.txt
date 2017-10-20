@@ -1,8 +1,8 @@
-This app helps to control your own finances, your wallet.
-It contains debit and credit counts, choise period of the your mney spends,
-transaction with date, value and categories for spends.
-Also it contains functions with count your spends on average.
-App connects to database and make a manipulation with data, after return the data to db.
+    This app helps to control your own finances, your wallet.
+    It contains accounts, period of the your money spends,
+    transactions with date, value and categories of spends.
+    Also it contains functions with count your spends on average.
+    App connects to database and makes a manipulation with data, after that returns the data to db.
 
 Class Period
  date field with start of period date, default value is today, set date with celendar
