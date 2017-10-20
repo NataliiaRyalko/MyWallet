@@ -1,0 +1,12 @@
+class Account:
+    field account_name
+    field account_value
+
+class Transaction:
+    transaction_name
+    transction_value
+    transaction_account = Account
+    transaction_date
+func set_spent:
+    transaction_account.value-transaction_value
+    return Account.value

@@ -13,21 +13,14 @@ Class Period
 
 
 Class Account:
- field debit decimal float(set_value):
-    card
-    cash
-    else
- field credit decimal float(set_value)
-    card
-    else
- field total_debit = calc(Transaction if count is debit)
- field total_credit = calc(Transaction if count is credit)
- func balance:
-  return total_debit-total_credit 
+ func set_account(name)
+ field account
+ fielf marker
+
 
 Class Transaction
  func choose category
- func choose account from Account(debit or credit)
+ func choose account from Account
  func set spent.value()
  char field description(text_field)
  date = Period.current_date()
