@@ -7,9 +7,15 @@ class Account:
 
 class Transaction:
     transaction_name
-    transction_value
+    transaction_value
     transaction_account = Account
     transaction_date
  func set_spend:
     spend = transaction_account.value-transaction_value
     return spend
+
+class Wallet:
+    account = Account
+    transaction = Transaction
+    transaction.transaction_account = account
+    account.account_value = transaction.set_spend()
