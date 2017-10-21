@@ -6,24 +6,31 @@ This app helps to control your own finances, your wallet.
     App connects to database and makes a manipulation with data, after that returns the data to db.
 
 """
-from  time import *
+import time
+from datetime import date
+today = date.today()
+# print(today)
 class Account(object):
-        def __init__(self):
-                self.account_name = 'Cash'#input('enter account name: ')
-                self.account_value = 100#input("enter account value: ")
+        def __init__(self,name, value):
+                self.account_name = name
+                self.account_value = value
 
-
+cash_account = Account("cash",1000)
+print(cash_account.account_name)
 class Transaction(object):
-        def __init__(self):
-                self.transaction_name = 'test'#input('enter transaction name: ')
-                self.transaction_value = 50#input('enter transaction value ')
-                # self.transaction_account = Account()
-                # self.transaction_date = time()
+        def __init__(self,name, value):
+                self.transaction_name = name
+                self.transaction_value = value
+                self.transaction_account = cash_account
+                self.transaction_date = today
+        def set_transaction(self):
+                spent = self.transaction_account.account_value-self.transaction_value
+                return  spent
 
+test_transaction = Transaction('test',50)
 
+print (test_transaction.transaction_date)
+print (test_transaction.set_transaction())
 class Wallet(object):
-
-        account = Account()
-        transaction = Transaction()
-    # transaction.transaction_account = account
+       pass
 
