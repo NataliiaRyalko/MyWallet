@@ -6,45 +6,37 @@ This app helps to control your own finances, your wallet.
     App connects to database and makes a manipulation with data, after that returns the data to db.
 
 """
-# import time
-from datetime import date
-# today = date.today()
-# print(today)
+import time
+from datetime import datetime
+
 class Account(object):
         # var name always is string, var value is number
         def __init__(self,name, value):
                 self.account_name = name
                 self.account_value = value
 
-# cash_account = Account("cash",1000)
-# print(cash_account.account_name)
-
 class Transaction(object):
-        # var name always is string, var value is number
+        # var name always is string, var value is number, account is object of Account class
         def __init__(self,name, value,account):
                 self.transaction_name = name
                 self.transaction_value = value
                 self.transaction_account = account
-                self.transaction_date = date.today()
+                self.transaction_date = datetime.now().strftime("%H:%M %d-%m-%y")
+
         # set
-        def set_transaction(self):
-                spent = self.transaction_account.account_value-self.transaction_value
-                return  spent
-
-# test_transaction = Transaction('test', 50)
-# print(test_transaction.transaction_date)
-# print(test_transaction.set_transaction())
-
+        def set_spend(self):
+                spend = self.transaction_account.account_value-self.transaction_value
+                return  spend
 
 
 class Wallet(object):
-        cash_account = Account("cash", 1000)
-        test_transaction = Transaction('test', 50, cash_account)
-
-
+        account = Account("cash", 1000)
+        transaction = Transaction('test', 50, account)
+        spent_account_money = transaction.set_spend()
+        account.account_value = spent_account_money
 
 
 Wallet()
-print(Wallet.cash_account.account_name)
-print(Wallet.test_transaction.transaction_date)
-print(Wallet.test_transaction.set_transaction())
+print(Wallet.account.account_value)
+print(Wallet.transaction.transaction_date)
+print(Wallet.spent_account_money)
