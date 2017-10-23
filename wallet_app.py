@@ -10,35 +10,63 @@ import time
 from datetime import datetime
 from tkinter import *
 
-root = Tk()
-root.mainloop()
+
+# root = Tk()
+# root.mainloop()
 
 class Account(object):
-        # var name always is string, var value is number
-        def __init__(self,name, value):
-                self.account_name = name
-                self.account_value = value
+    # var name always is string, var value is number
+    def __init__(self, name, value):
+        self.account_name = name
+        self.account_value = value
+
 
 class Transaction(object):
-        # var name always is string, var value is number, account is object of Account class
-        def __init__(self,name, value,account):
-                self.transaction_name = name
-                self.transaction_value = value
-                self.transaction_account = account
-                self.transaction_date = datetime.now().strftime("%H:%M %d-%m-%y")
-        # set
-        def set_spend(self):
-                spend = self.transaction_account.account_value-self.transaction_value
-                return  spend
+    # var name always is string, var value is number, account is object of Account class
+    def __init__(self, name, value, account):
+        self.transaction_name = name
+        self.transaction_value = value
+        self.transaction_account = account
+        self.transaction_date = datetime.now().strftime("%H:%M %d-%m-%y")
+
+    # set
+    def set_spend(self):
+        spend = self.transaction_account.account_value - self.transaction_value
+        return spend
+
 
 class Wallet(object):
-        account = Account("cash", 1000)
-        transaction = Transaction('test', 50, account)
-        spent_account_money = transaction.set_spend()
-        account.account_value = spent_account_money
+    account = Account("cash", 1000)
+    transaction = Transaction('test', 50, account)
+    spent_account_money = transaction.set_spend()
+    account.account_value = spent_account_money
 
 
 Wallet()
 print(Wallet.account.account_value)
 print(Wallet.transaction.transaction_date)
 print(Wallet.spent_account_money)
+
+
+
+
+def button_click():
+        bg = '#f4e541'
+        # button_test['bg'] = bg
+        button_test['activebackground'] = bg
+
+root = Tk()
+button_test = Button(root, text= "test",command = "button_click()")
+button_test.pack()
+root.mainloop()
+
+# from random import random
+# def button_clicked():
+#     button['text'] = button['bg'] # показываем предыдущий цвет кнопки
+#     bg = '#%0i%0i%0i' % (random()*16, random()*16, random()*16)
+#     # button['bg'] = bg
+#     button['activebackground'] = bg
+# root=Tk()
+# button = Button(root, command=button_clicked)
+# button.pack()
+# root.mainloop()
