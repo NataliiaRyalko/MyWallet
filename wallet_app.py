@@ -8,6 +8,10 @@ This app helps to control your own finances, your wallet.
 """
 import time
 from datetime import datetime
+from tkinter import *
+
+root = Tk()
+root.mainloop()
 
 class Account(object):
         # var name always is string, var value is number
@@ -22,12 +26,10 @@ class Transaction(object):
                 self.transaction_value = value
                 self.transaction_account = account
                 self.transaction_date = datetime.now().strftime("%H:%M %d-%m-%y")
-
         # set
         def set_spend(self):
                 spend = self.transaction_account.account_value-self.transaction_value
                 return  spend
-
 
 class Wallet(object):
         account = Account("cash", 1000)
