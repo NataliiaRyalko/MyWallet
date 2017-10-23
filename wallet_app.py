@@ -56,7 +56,7 @@ def button_click():
         button_test['activebackground'] = bg
 
 root = Tk()
-button_test = Button(root, text= "test",command = "button_click()")
+button_test = Button(root, text= "test",command = button_click())
 button_test.pack()
 root.mainloop()
 
