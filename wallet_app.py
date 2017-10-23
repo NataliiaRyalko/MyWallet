@@ -48,25 +48,24 @@ print(Wallet.transaction.transaction_date)
 print(Wallet.spent_account_money)
 
 
-
-
+#GUI
+root = Tk()
+#timer
+def tick():
+    label.after(200, tick)
+    label['text'] = time.strftime('%H:%M:%S')
+label = Label(root, font='sans 20')
+label.pack()
+label.after_idle(tick)
+#button
 def button_click():
         bg = '#f4e541'
-        # button_test['bg'] = bg
-        button_test['activebackground'] = bg
+        button_test['bg'] = bg
 
-root = Tk()
-button_test = Button(root, text= "test",command = button_click())
+button_test = Button(root, text= "test",command = button_click)
 button_test.pack()
+#  window options
+root.title(u'Simple wallet app')
+root.geometry('500x400+300+200')
+root.resizable(True, False)
 root.mainloop()
-
-# from random import random
-# def button_clicked():
-#     button['text'] = button['bg'] # показываем предыдущий цвет кнопки
-#     bg = '#%0i%0i%0i' % (random()*16, random()*16, random()*16)
-#     # button['bg'] = bg
-#     button['activebackground'] = bg
-# root=Tk()
-# button = Button(root, command=button_clicked)
-# button.pack()
-# root.mainloop()
