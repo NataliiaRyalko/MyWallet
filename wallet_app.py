@@ -57,13 +57,15 @@ def tick():
 label = Label(root, font='sans 20')
 label.pack()
 label.after_idle(tick)
+
 #button
 def button_click():
         bg = '#f4e541'
         button_test['bg'] = bg
-
 button_test = Button(root, text= "test",command = button_click)
 button_test.pack()
+#input
+input_value = Entry()
 #  window options
 root.title(u'Simple wallet app')
 root.geometry('500x400+300+200')
