@@ -48,8 +48,11 @@ print(Wallet.transaction.transaction_date)
 print(Wallet.spent_account_money)
 
 
-#GUI
+#GUI:
+
+#root
 root = Tk()
+
 #timer
 def tick():
     label.after(200, tick)
@@ -58,14 +61,17 @@ label = Label(root, font='sans 20')
 label.pack()
 label.after_idle(tick)
 
+#input
+input_value = Entry(root)
+input_value.pack()
+
 #button
 def button_click():
         bg = '#f4e541'
         button_test['bg'] = bg
 button_test = Button(root, text= "test",command = button_click)
 button_test.pack()
-#input
-input_value = Entry()
+
 #  window options
 root.title(u'Simple wallet app')
 root.geometry('500x400+300+200')
