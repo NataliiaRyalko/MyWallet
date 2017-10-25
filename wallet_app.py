@@ -65,11 +65,13 @@ label.after_idle(tick)
 input_value = Entry(root)
 input_value.pack()
 
+def callback():
+    print (input_value.get())
 #button
 def button_click():
         bg = '#f4e541'
         button_test['bg'] = bg
-button_test = Button(root, text= "test",command = button_click)
+button_test = Button(root, text= "test",command = callback)
 button_test.pack()
 
 #  window options
