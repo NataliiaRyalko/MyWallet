@@ -10,42 +10,6 @@ import time
 from datetime import datetime
 from tkinter import *
 
-
-#GUI:
-
-#root
-root = Tk()
-
-#timer
-def tick():
-    label.after(200, tick)
-    label['text'] = time.strftime('%H:%M:%S')
-label = Label(root, font='sans 20')
-label.pack()
-label.after_idle(tick)
-
-#input
-input_value = Entry(root)
-input_value.pack()
-
-def callback():
-    entered_value  = int(input_value.get())
-    print (entered_value)
-
-#button
-def button_click():
-        bg = '#f4e541'
-        button_test['bg'] = bg
-button_test = Button(root, text= "test",command = callback)
-button_test.pack()
-
-#  window options
-root.title(u'Simple wallet app')
-root.geometry('500x400+300+200')
-root.resizable(True, False)
-
-
-
 class Account(object):
     # var name always is string, var value is number
     def __init__(self, name, value):
@@ -78,6 +42,40 @@ Wallet()
 print(Wallet.account.account_value)
 print(Wallet.transaction.transaction_date)
 print(Wallet.spent_account_money)
-print(callback())
+
+#GUI:
+
+#root
+root = Tk()
+
+#timer
+def tick():
+    label.after(200, tick)
+    label['text'] = time.strftime('%H:%M:%S')
+label = Label(root, font='sans 20')
+label.pack()
+label.after_idle(tick)
+
+#input
+input_value = Entry(root)
+input_value.pack()
+
+def callback():
+    entered_value  = input_value.get()
+    print (entered_value)
+
+
+#button
+def button_click():
+        bg = '#f4e541'
+        button_test['bg'] = bg
+button_test = Button(root, text= "test",command = callback)
+button_test.pack()
+
+#  window options
+root.title(u'Simple wallet app')
+root.geometry('500x400+300+200')
+root.resizable(True, False)
+input_value.delete(0, END)
 
 root.mainloop()
