@@ -24,6 +24,8 @@ class Transaction(object):
         self.transaction_value = value
         self.transaction_account = account
         self.transaction_date = datetime.now().strftime("%H:%M %d-%m-%y")
+        spent_account_money = self.set_spend()
+        account.account_value = spent_account_money
 
     # set
     def set_spend(self):
@@ -33,15 +35,16 @@ class Transaction(object):
 
 class Wallet(object):
     account = Account("cash", 1000)
-    transaction = Transaction('test', 50, account)
-    spent_account_money = transaction.set_spend()
-    account.account_value = spent_account_money
+    transaction = [Transaction('test', 50, account)]
+
+    def add_transaction(self, transaction):
+        self.transaction.append(transaction)
 
 
-Wallet()
-print(Wallet.account.account_value)
-print(Wallet.transaction.transaction_date)
-print(Wallet.spent_account_money)
+wallet = Wallet()
+# print(Wallet.account.account_value)
+# print(Wallet.transaction.transaction_date)
+# print(Wallet.spent_account_money)
 
 #GUI:
 
@@ -61,8 +64,11 @@ input_value = Entry(root)
 input_value.pack()
 
 def callback():
+
     entered_value  = input_value.get()
     print (entered_value)
+    wallet.add_transaction(Transaction("name",int(entered_value),wallet.account))
+    print(wallet.account.account_value)
 
 
 #button
@@ -74,8 +80,7 @@ button_test.pack()
 
 #  window options
 root.title(u'Simple wallet app')
-root.geometry('500x400+300+200')
+root.geometry('500x400')
 root.resizable(True, False)
-input_value.delete(0, END)
 
 root.mainloop()
