@@ -83,9 +83,11 @@ button_test.pack()
 def make_test():
     wallet.add_account()
     print(wallet.test_account_list)
+    print(wallet.transaction)
 
 button_test_dict = Button(root,text = "dict",command = make_test)
 button_test_dict.pack()
+
 #  window options
 root.title('Simple wallet app')
 root.geometry('500x400')
