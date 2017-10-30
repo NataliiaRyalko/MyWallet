@@ -37,6 +37,9 @@ class Transaction(object):
 class Wallet(object):
     account = Account("cash", 1000)
     transaction = []
+    test_account_list = []
+    def add_account(self):
+        self.test_account_list.append(self.account)
 
     def add_transaction(self, transaction):
         self.transaction.append(transaction)
@@ -47,7 +50,7 @@ wallet = Wallet()
 
 #GUI:
 
-#root
+#root window
 root = Tk()
 
 #timer
@@ -76,7 +79,13 @@ def button_click():
         button_test['bg'] = bg
 button_test = Button(root, text= "test",command = callback)
 button_test.pack()
+#test_area
+def make_test():
+    wallet.add_account()
+    print(wallet.test_account_list)
 
+button_test_dict = Button(root,text = "dict",command = make_test)
+button_test_dict.pack()
 #  window options
 root.title('Simple wallet app')
 root.geometry('500x400')
