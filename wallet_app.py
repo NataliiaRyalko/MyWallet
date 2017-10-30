@@ -10,6 +10,10 @@ import time
 from datetime import datetime
 from tkinter import *
 
+class Time():
+    time_now = datetime.now().strftime("%H:%M %d-%m-%y")
+
+
 class Account(object):
     # var name always is string, var value is number
     def __init__(self, name, value):
@@ -23,7 +27,7 @@ class Transaction(object):
         self.transaction_name = name
         self.transaction_value = value
         self.transaction_account = account
-        self.transaction_date = datetime.now().strftime("%H:%M %d-%m-%y")
+        self.transaction_date = Time().time_now
         spent_account_money = self.set_spend()
         account.account_value = spent_account_money
 
@@ -79,7 +83,7 @@ button_test = Button(root, text= "test",command = callback)
 button_test.pack()
 
 #  window options
-root.title(u'Simple wallet app')
+root.title('Simple wallet app')
 root.geometry('500x400')
 root.resizable(True, False)
 
