@@ -10,7 +10,7 @@ import time
 from datetime import datetime
 from tkinter import *
 
-class Time():
+class Time(object):
     time_now = datetime.now().strftime("%H:%M %d-%m-%y")
 
 
@@ -46,9 +46,7 @@ class Wallet(object):
 
 
 wallet = Wallet()
-# print(Wallet.account.account_value)
-# print(Wallet.transaction.transaction_date)
-# print(Wallet.spent_account_money)
+
 
 #GUI:
 
