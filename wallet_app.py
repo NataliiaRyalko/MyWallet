@@ -10,8 +10,6 @@ import time
 from datetime import datetime
 from tkinter import *
 
-class Time(object):
-    time_now = datetime.now().strftime("%H:%M %d-%m-%y")
 
 
 class Account(object):
@@ -23,11 +21,10 @@ class Account(object):
 
 class Transaction(object):
     # var name always is string, var value is number, account is object of Account class
-    def __init__(self, name, value, account):
-        self.transaction_name = name
+    def __init__(self, value, account):
+        self.transaction_name = datetime.now().strftime("%H:%M %d-%m-%y")
         self.transaction_value = value
         self.transaction_account = account
-        self.transaction_date = Time().time_now
         spent_account_money = self.set_spend()
         account.account_value = spent_account_money
 
@@ -39,7 +36,7 @@ class Transaction(object):
 
 class Wallet(object):
     account = Account("cash", 1000)
-    transaction = [Transaction('test', 50, account)]
+    transaction = []
 
     def add_transaction(self, transaction):
         self.transaction.append(transaction)
@@ -69,7 +66,7 @@ def callback():
 
     entered_value  = input_value.get()
     print (entered_value)
-    wallet.add_transaction(Transaction("name",int(entered_value),wallet.account))
+    wallet.add_transaction(Transaction(int(entered_value),wallet.account))
     print(wallet.account.account_value)
 
 
