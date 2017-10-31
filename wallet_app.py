@@ -58,12 +58,12 @@ def tick():
     label.after(200, tick)
     label['text'] = time.strftime('%H:%M:%S')
 label = Label(root, font='sans 20')
-label.pack()
+label.grid(column = 5,row = 1)
 label.after_idle(tick)
 
 #input
 input_value = Entry(root)
-input_value.pack()
+input_value.grid(column = 5,row = 2)
 
 def callback():
 
@@ -78,7 +78,7 @@ def button_click():
         bg = '#f4e541'
         button_test['bg'] = bg
 button_test = Button(root, text= "test",command = callback)
-button_test.pack()
+button_test.grid(column = 5,row = 3)
 #test_area
 def make_test():
     wallet.add_account()
@@ -86,11 +86,11 @@ def make_test():
     print(wallet.transaction)
 
 button_test_dict = Button(root,text = "dict",command = make_test)
-button_test_dict.pack()
+button_test_dict.grid(column = 5,row = 5)
 
 #  window options
 root.title('Simple wallet app')
-root.geometry('500x400')
+root.geometry('160x200')
 root.resizable(True, False)
 
 root.mainloop()
