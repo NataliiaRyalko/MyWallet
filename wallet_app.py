@@ -37,9 +37,9 @@ class Transaction(object):
 class Wallet(object):
     account = Account("cash", 1000)
     transaction = []
-    test_account_list = []
+    account_list = []
     def add_account(self):
-        self.test_account_list.append(self.account)
+        self.account_list.append(self.account)
 
     def add_transaction(self, transaction):
         self.transaction.append(transaction)
@@ -74,15 +74,13 @@ def callback():
 
 
 #button
-def button_click():
-        bg = '#f4e541'
-        button_test['bg'] = bg
 button_test = Button(root, text= "test",command = callback)
 button_test.grid(column = 5,row = 3)
+
 #test_area
 def make_test():
     wallet.add_account()
-    print(wallet.test_account_list)
+    print(wallet.account_list)
     print(wallet.transaction)
 
 button_test_dict = Button(root,text = "dict",command = make_test)
@@ -94,3 +92,7 @@ root.geometry('160x200')
 root.resizable(True, False)
 
 root.mainloop()
+
+
+
+
