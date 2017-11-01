@@ -36,13 +36,13 @@ class Transaction(object):
 
 class Wallet(object):
     account = Account("cash", 1000)
-    transaction = []
+    transaction_list = []
     account_list = []
     def add_account(self):
         self.account_list.append(self.account)
 
     def add_transaction(self, transaction):
-        self.transaction.append(transaction)
+        self.transaction_list.append(transaction)
 
 
 wallet = Wallet()
@@ -81,7 +81,7 @@ button_test.grid(column = 5,row = 3)
 def make_test():
     wallet.add_account()
     print(wallet.account_list)
-    print(wallet.transaction)
+    print(wallet.transaction_list)
 
 button_test_dict = Button(root,text = "dict",command = make_test)
 button_test_dict.grid(column = 5,row = 5)
