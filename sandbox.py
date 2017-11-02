@@ -1,11 +1,15 @@
 import tkinter as tk
 from wallet_app import *
+
+
 class App_GUI(tk.Frame):
 
     def __init__(self, master=None):
         super().__init__(master)
         self.grid()#row = 1, column = 1)
         self.create_widgets()
+
+
 
     def create_widgets(self):
 
@@ -35,6 +39,8 @@ class App_GUI(tk.Frame):
 
         self.quit = tk.Button(self, text="QUIT", fg="red",command=root.destroy)
         self.quit.grid(row=6, column=2)
+
+        self.master.title('Simple wallet app')
 
     def transaction_callback(self):
 
