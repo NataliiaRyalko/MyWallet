@@ -1,2 +1,2 @@
 # MyWallet
-I will create pocket app for control our own finances
+I will create pocket app for control your own finances
