@@ -47,52 +47,6 @@ class Wallet(object):
 
 wallet = Wallet()
 
-'''
-#GUI:
 
-#root window
-root = Tk()
-
-#timer
-def tick():
-    label.after(200, tick)
-    label['text'] = time.strftime('%H:%M:%S')
-label = Label(root, font='sans 20')
-label.grid(column = 5,row = 1)
-label.after_idle(tick)
-
-#input
-input_value = Entry(root)
-input_value.grid(column = 5,row = 2)
-
-def callback():
-
-    entered_value  = input_value.get()
-    print (entered_value)
-    wallet.add_transaction(Transaction(int(entered_value),wallet.account))
-    print(wallet.account.account_value)
-
-
-#button
-button_test = Button(root, text= "test",command = callback)
-button_test.grid(column = 5,row = 3)
-
-#test_area
-def make_test():
-    wallet.add_account()
-    print(wallet.account_list)
-    print(wallet.transaction_list)
-
-button_test_dict = Button(root,text = "dict",command = make_test)
-button_test_dict.grid(column = 5,row = 5)
-
-#  window options
-root.title('Simple wallet app')
-root.geometry('160x200')
-root.resizable(True, False)
-
-root.mainloop()
-
-'''
 
 
