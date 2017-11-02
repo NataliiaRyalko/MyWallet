@@ -35,11 +35,12 @@ class Transaction(object):
 
 
 class Wallet(object):
-    account = Account("cash", 1100)
     transaction_list = []
     account_list = []
-    def add_account(self):
-        self.account_list.append(self.account)
+
+    def add_account(self,account):
+        self.account_list.append(account)
+        return account
 
     def add_transaction(self, transaction):
         self.transaction_list.append(transaction)

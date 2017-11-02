@@ -8,18 +8,47 @@ class App_GUI(tk.Frame):
         self.create_widgets()
 
     def create_widgets(self):
-        self.add_transaction_btn = tk.Button(self, text= "Add Transaction",command = self.callback)
-        self.add_transaction_btn.grid(row = 4, column = 1)
-        self.input_value = tk.Entry(self)
-        self.input_value.grid(row = 3, column = 1)
-        self.quit = tk.Button(self, text="QUIT", fg="red",command=root.destroy)
-        self.quit.grid(row=4, column=2)
 
-    def callback(self):
-        self.entered_value = self.input_value.get()
+        self.add_account_btn = tk.Button(self,text = "Add Account", command = self.account_callback)
+        self.add_account_btn.grid(row = 3, column = 1)
+
+        self.add_transaction_btn = tk.Button(self, text= "Add Transaction", command = self.transaction_callback)
+        self.add_transaction_btn.grid(row = 6, column = 1)
+
+        self.input_transaction_value = tk.Entry(self)
+        self.input_transaction_value.grid(row = 5, column = 1)
+
+        self.input_account_name_label = tk.Label(self, text ="Enter Account name:")
+        self.input_account_name_label.grid(row = 1, column = 2)
+
+        self.input_account_name_label = tk.Label(self, text="Enter Account value:")
+        self.input_account_name_label.grid(row=1, column=1)
+
+        self.input_transaction_value_label = tk.Label(self, text="Enter Transaction value:")
+        self.input_transaction_value_label.grid(row=4, column=1)
+
+        self.input_account_value = tk.Entry(self)
+        self.input_account_value.grid(row=2, column=1)
+
+        self.input_account_name = tk.Entry(self)
+        self.input_account_name.grid(row=2, column=2)
+
+        self.quit = tk.Button(self, text="QUIT", fg="red",command=root.destroy)
+        self.quit.grid(row=6, column=2)
+
+    def transaction_callback(self):
+
+        self.entered_value = self.input_transaction_value.get()
         print(self.entered_value)
-        wallet.add_transaction(Transaction(int(self.entered_value), wallet.account))
-        print(wallet.account.account_value)
+        wallet_unit = wallet.account_list[0]
+        wallet.add_transaction(Transaction(int(self.entered_value), wallet_unit))
+        print(wallet_unit.account_value)
+
+    def account_callback(self):
+
+        self.entered_value = self.input_account_value.get()
+        self.entered_name = self.input_account_name.get()
+        wallet.add_account(Account(self.entered_name,int(self.entered_value)))
 
 
 
