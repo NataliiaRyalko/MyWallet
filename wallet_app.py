@@ -35,7 +35,7 @@ class Transaction(object):
 
 
 class Wallet(object):
-    account = Account("cash", 1000)
+    account = Account("cash", 1100)
     transaction_list = []
     account_list = []
     def add_account(self):
@@ -47,7 +47,7 @@ class Wallet(object):
 
 wallet = Wallet()
 
-
+'''
 #GUI:
 
 #root window
@@ -93,6 +93,6 @@ root.resizable(True, False)
 
 root.mainloop()
 
-
+'''
 
 
