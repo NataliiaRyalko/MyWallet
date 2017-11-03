@@ -9,22 +9,14 @@ class App_GUI(tk.Frame):
         self.grid()#row = 1, column = 1)
         self.create_widgets()
 
-
-
     def create_widgets(self):
-
-        self.add_account_btn = tk.Button(self,text = "Add Account", command = self.account_callback)
-        self.add_account_btn.grid(row = 3, column = 1)
-
-        self.add_transaction_btn = tk.Button(self, text= "Add Transaction", command = self.transaction_callback)
-        self.add_transaction_btn.grid(row = 6, column = 1)
-
+        #input fields
         self.input_transaction_value = tk.Entry(self)
         self.input_transaction_value.grid(row = 5, column = 1)
 
         self.input_select_account = tk.Entry(self)
         self.input_select_account.grid(row=5, column=2)
-
+        #lebels
         self.input_account_name_label = tk.Label(self, text ="Enter Account name:")
         self.input_account_name_label.grid(row = 1, column = 2)
 
@@ -42,10 +34,16 @@ class App_GUI(tk.Frame):
 
         self.input_account_name = tk.Entry(self)
         self.input_account_name.grid(row=2, column=2)
+        #buttons
+        self.add_account_btn = tk.Button(self, text="Add Account", command=self.account_callback)
+        self.add_account_btn.grid(row=3, column=1)
+
+        self.add_transaction_btn = tk.Button(self, text="Add Transaction", command=self.transaction_callback)
+        self.add_transaction_btn.grid(row=6, column=1)
 
         self.quit = tk.Button(self, text="QUIT", fg="red",command=root.destroy)
         self.quit.grid(row=6, column=2)
-
+        #window settings
         self.master.title('Simple wallet app')
         # self.master.geometry("350x200")
 
