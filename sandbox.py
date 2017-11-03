@@ -34,7 +34,7 @@ class App_GUI(tk.Frame):
         self.input_transaction_value_label = tk.Label(self, text="Enter Transaction value:")
         self.input_transaction_value_label.grid(row=4, column=1)
 
-        self.input_transaction_value_label = tk.Label(self, text="Select account(1-cash,2-card):")
+        self.input_transaction_value_label = tk.Label(self, text="Select account(1,2):")
         self.input_transaction_value_label.grid(row=4, column=2)
 
         self.input_account_value = tk.Entry(self)
@@ -47,12 +47,13 @@ class App_GUI(tk.Frame):
         self.quit.grid(row=6, column=2)
 
         self.master.title('Simple wallet app')
+        # self.master.geometry("350x200")
 
     def transaction_callback(self):
 
         self.entered_value = self.input_transaction_value.get()
         print(self.entered_value)
-        selected_account = int(self.input_select_account.get())+1
+        selected_account = int(self.input_select_account.get())-1
         wallet_unit = wallet.account_list[selected_account]
         wallet.add_transaction(Transaction(int(self.entered_value), wallet_unit))
         print(wallet_unit.account_value)
