@@ -12,39 +12,39 @@ class App_GUI(tk.Frame):
     def create_widgets(self):
         #input fields
         self.input_transaction_value = tk.Entry(self)
-        self.input_transaction_value.grid(row = 5, column = 1)
+        self.input_transaction_value.grid(row = 9, column = 1)
 
         self.input_account_value = tk.Entry(self)
-        self.input_account_value.grid(row=2, column=1)
+        self.input_account_value.grid(row=4, column=1)
 
         self.input_account_name = tk.Entry(self)
-        self.input_account_name.grid(row=2, column=2)
+        self.input_account_name.grid(row=2, column=1)
         #lebels
         self.input_account_name_label = tk.Label(self, text ="Enter Account name:")
-        self.input_account_name_label.grid(row = 1, column = 2)
+        self.input_account_name_label.grid(row = 1, column = 1)
 
         self.input_account_name_label = tk.Label(self, text="Enter Account value:")
-        self.input_account_name_label.grid(row=1, column=1)
+        self.input_account_name_label.grid(row=3, column=1)
 
         self.input_transaction_value_label = tk.Label(self, text="Enter Transaction value:")
-        self.input_transaction_value_label.grid(row=4, column=1)
+        self.input_transaction_value_label.grid(row=8, column=1)
 
-        # self.input_transaction_value_label = tk.Label(self, text="Select account(1,2):")
-        # self.input_transaction_value_label.grid(row=4, column=2)
+        self.input_transaction_value_label = tk.Label(self, text="Select account:")
+        self.input_transaction_value_label.grid(row=6, column=1)
 
 
         #buttons
         self.add_account_btn = tk.Button(self, text="Add Account", command=self.account_callback)
-        self.add_account_btn.grid(row=3, column=1)
+        self.add_account_btn.grid(row=5, column=1)
 
         self.add_transaction_btn = tk.Button(self, text="Add Transaction", command=self.transaction_callback)
-        self.add_transaction_btn.grid(row=6, column=1)
+        self.add_transaction_btn.grid(row=10, column=1)
 
         self.quit = tk.Button(self, text="QUIT", fg="red",command=root.destroy)
-        self.quit.grid(row=6, column=2)
+        self.quit.grid(row=11, column=1)
         #listboxes
-        self.listbox=Listbox(self,height=5,width=15,selectmode=SINGLE)
-        self.listbox.grid(row = 5,column = 2)
+        self.listbox=Listbox(self,height=5,selectmode=SINGLE,yscrollcommand = True)
+        self.listbox.grid(row = 7,column = 1)
         #window settings
         self.master.title('Simple wallet app')
         # self.master.geometry("500x300")
