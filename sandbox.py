@@ -43,24 +43,27 @@ class App_GUI(tk.Frame):
 
         self.quit = tk.Button(self, text="QUIT", fg="red",command=root.destroy)
         self.quit.grid(row=6, column=2)
+        #listboxes
+        self.listbox=Listbox(self,height=5,width=15,selectmode=SINGLE)
+        self.listbox.grid(row = 7,column = 1)
         #window settings
         self.master.title('Simple wallet app')
-        # self.master.geometry("350x200")
+        # self.master.geometry("500x300")
 
     def transaction_callback(self):
 
-        self.entered_value = self.input_transaction_value.get()
+        self.entered_value = int(self.input_transaction_value.get())
         print(self.entered_value)
         selected_account = int(self.input_select_account.get())-1
         wallet_unit = wallet.account_list[selected_account]
-        wallet.add_transaction(Transaction(int(self.entered_value), wallet_unit))
+        wallet.add_transaction(Transaction(self.entered_value, wallet_unit))
         print(wallet_unit.account_value)
 
     def account_callback(self):
 
-        self.entered_value = self.input_account_value.get()
+        self.entered_value = int(self.input_account_value.get())
         self.entered_name = self.input_account_name.get()
-        wallet.add_account(Account(self.entered_name,int(self.entered_value)))
+        wallet.add_account(Account(self.entered_name,self.entered_value))
 
 
 
