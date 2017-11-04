@@ -54,8 +54,11 @@ class App_GUI(tk.Frame):
 
         self.entered_value = int(self.input_transaction_value.get())
         print(self.entered_value)
-        selected_account = int(self.input_select_account.get())
-        curr_account = wallet.account_list[selected_account]
+        selected_account = self.listbox.curselection()
+        print (selected_account[0])
+        selected_account_value = selected_account[0]
+        account_list = wallet.account_list
+        curr_account = account_list[selected_account_value]
         wallet.add_transaction(Transaction(self.entered_value, curr_account))
         print(curr_account.account_value)
 
@@ -68,6 +71,8 @@ class App_GUI(tk.Frame):
         account_list_index = len(account_list)-1
         curr_account = account_list[account_list_index]
         self.listbox.insert(END, curr_account.account_name)
+
+
 
 
 
