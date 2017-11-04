@@ -64,6 +64,8 @@ class App_GUI(tk.Frame):
         self.entered_value = int(self.input_account_value.get())
         self.entered_name = self.input_account_name.get()
         wallet.add_account(Account(self.entered_name,self.entered_value))
+        for item in wallet.account_list:
+            self.listbox.insert(END, item)
 
 
 
