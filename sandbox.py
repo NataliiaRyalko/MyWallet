@@ -14,8 +14,11 @@ class App_GUI(tk.Frame):
         self.input_transaction_value = tk.Entry(self)
         self.input_transaction_value.grid(row = 5, column = 1)
 
-        self.input_select_account = tk.Entry(self)
-        self.input_select_account.grid(row=5, column=2)
+        self.input_account_value = tk.Entry(self)
+        self.input_account_value.grid(row=2, column=1)
+
+        self.input_account_name = tk.Entry(self)
+        self.input_account_name.grid(row=2, column=2)
         #lebels
         self.input_account_name_label = tk.Label(self, text ="Enter Account name:")
         self.input_account_name_label.grid(row = 1, column = 2)
@@ -26,14 +29,10 @@ class App_GUI(tk.Frame):
         self.input_transaction_value_label = tk.Label(self, text="Enter Transaction value:")
         self.input_transaction_value_label.grid(row=4, column=1)
 
-        self.input_transaction_value_label = tk.Label(self, text="Select account(1,2):")
-        self.input_transaction_value_label.grid(row=4, column=2)
+        # self.input_transaction_value_label = tk.Label(self, text="Select account(1,2):")
+        # self.input_transaction_value_label.grid(row=4, column=2)
 
-        self.input_account_value = tk.Entry(self)
-        self.input_account_value.grid(row=2, column=1)
 
-        self.input_account_name = tk.Entry(self)
-        self.input_account_name.grid(row=2, column=2)
         #buttons
         self.add_account_btn = tk.Button(self, text="Add Account", command=self.account_callback)
         self.add_account_btn.grid(row=3, column=1)
@@ -45,32 +44,47 @@ class App_GUI(tk.Frame):
         self.quit.grid(row=6, column=2)
         #listboxes
         self.listbox=Listbox(self,height=5,width=15,selectmode=SINGLE)
-        self.listbox.grid(row = 7,column = 1)
+        self.listbox.grid(row = 5,column = 2)
         #window settings
         self.master.title('Simple wallet app')
         # self.master.geometry("500x300")
 
+    """
+    account_callback function responsibilities:
+       -gets data for account creating
+       -creates accounts and account list
+       -add and displays account name to listbox 
+    """
+
+    def account_callback(self):
+        self.entered_value = int(self.input_account_value.get())
+        self.entered_name = self.input_account_name.get()
+        wallet.add_account(Account(self.entered_name, self.entered_value))
+        account_list = wallet.account_list
+        account_list_index = len(account_list) - 1
+        curr_account = account_list[account_list_index]
+        self.listbox.insert(END, curr_account.account_name)
+
+    """
+    transaction_callback function responsibilities:
+       -gets data for transaction creating
+       -creates transaction 
+       -make calculations with selected from listbox account
+       and created transaction
+    """
     def transaction_callback(self):
 
         self.entered_value = int(self.input_transaction_value.get())
         print(self.entered_value)
-        selected_account = self.listbox.curselection()
-        print (selected_account[0])
+        selected_account = self.listbox.curselection()# it's tuple with selected element index
+        print (selected_account[0])# get value of tuple
         selected_account_value = selected_account[0]
         account_list = wallet.account_list
+        # the value of tuple is value of index account in account_list
         curr_account = account_list[selected_account_value]
         wallet.add_transaction(Transaction(self.entered_value, curr_account))
         print(curr_account.account_value)
 
-    def account_callback(self):
-
-        self.entered_value = int(self.input_account_value.get())
-        self.entered_name = self.input_account_name.get()
-        wallet.add_account(Account(self.entered_name,self.entered_value))
-        account_list = wallet.account_list
-        account_list_index = len(account_list)-1
-        curr_account = account_list[account_list_index]
-        self.listbox.insert(END, curr_account.account_name)
 
 
 
