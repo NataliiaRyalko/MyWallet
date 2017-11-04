@@ -6,7 +6,7 @@ class App_GUI(tk.Frame):
 
     def __init__(self, master=None):
         super().__init__(master)
-        self.grid()#row = 1, column = 1)
+        self.grid()
         self.create_widgets()
 
     def create_widgets(self):
@@ -46,7 +46,7 @@ class App_GUI(tk.Frame):
         self.listbox=Listbox(self,height=5,selectmode=SINGLE,yscrollcommand = True)
         self.listbox.grid(row = 7,column = 1)
         #window settings
-        self.master.title('Simple wallet app')
+        self.master.title('My wallet')
         # self.master.geometry("500x300")
 
     """
@@ -70,7 +70,7 @@ class App_GUI(tk.Frame):
        -gets data for transaction creating
        -creates transaction 
        -make calculations with selected from listbox account
-       and created transaction
+        and transaction
     """
     def transaction_callback(self):
 
@@ -85,13 +85,6 @@ class App_GUI(tk.Frame):
         wallet.add_transaction(Transaction(self.entered_value, curr_account))
         print(curr_account.account_value)
 
-
-
-
-
-
-
-
 root = tk.Tk()
 app = App_GUI(master=root)
 app.mainloop()
@@ -99,50 +92,3 @@ app.mainloop()
 
 
 
-'''
-#GUI:
-
-#root window
-root = Tk()
-
-#timer
-def tick():
-    label.after(200, tick)
-    label['text'] = time.strftime('%H:%M:%S')
-label = Label(root, font='sans 20')
-label.grid(column = 5,row = 1)
-label.after_idle(tick)
-
-#input
-input_value = Entry(root)
-input_value.grid(column = 5,row = 2)
-
-def callback():
-
-    entered_value  = input_value.get()
-    print (entered_value)
-    wallet.add_transaction(Transaction(int(entered_value),wallet.account))
-    print(wallet.account.account_value)
-
-
-#button
-button_test = Button(root, text= "test",command = callback)
-button_test.grid(column = 5,row = 3)
-
-#test_area
-def make_test():
-    wallet.add_account()
-    print(wallet.account_list)
-    print(wallet.transaction_list)
-
-button_test_dict = Button(root,text = "dict",command = make_test)
-button_test_dict.grid(column = 5,row = 5)
-
-#  window options
-root.title('Simple wallet app')
-root.geometry('160x200')
-root.resizable(True, False)
-
-root.mainloop()
-
-'''
