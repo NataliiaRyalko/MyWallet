@@ -54,18 +54,22 @@ class App_GUI(tk.Frame):
 
         self.entered_value = int(self.input_transaction_value.get())
         print(self.entered_value)
-        selected_account = int(self.input_select_account.get())-1
-        wallet_unit = wallet.account_list[selected_account]
-        wallet.add_transaction(Transaction(self.entered_value, wallet_unit))
-        print(wallet_unit.account_value)
+        selected_account = int(self.input_select_account.get())
+        curr_account = wallet.account_list[selected_account]
+        wallet.add_transaction(Transaction(self.entered_value, curr_account))
+        print(curr_account.account_value)
 
     def account_callback(self):
 
         self.entered_value = int(self.input_account_value.get())
         self.entered_name = self.input_account_name.get()
         wallet.add_account(Account(self.entered_name,self.entered_value))
-        for item in wallet.account_list:
-            self.listbox.insert(END, item)
+        account_list = wallet.account_list
+        account_list_index = len(account_list)-1
+        curr_account = account_list[account_list_index]
+        self.listbox.insert(END, curr_account.account_name)
+
+
 
 
 
