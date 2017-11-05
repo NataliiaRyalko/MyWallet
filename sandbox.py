@@ -43,7 +43,7 @@ class App_GUI(tk.Frame):
         self.quit = tk.Button(self, text="QUIT", fg="red",command=root.destroy)
         self.quit.grid(row=11, column=1)
         #listboxes
-        self.listbox=Listbox(self,height=5,selectmode=SINGLE,yscrollcommand = True)
+        self.listbox=tk.Listbox(self,height=5,selectmode='SINGLE',yscrollcommand = True)
         self.listbox.grid(row = 7,column = 1)
         #window settings
         self.master.title('My wallet')
@@ -63,7 +63,7 @@ class App_GUI(tk.Frame):
         account_list = wallet.account_list
         account_list_index = len(account_list) - 1
         curr_account = account_list[account_list_index]
-        self.listbox.insert(END, curr_account.account_name)
+        self.listbox.insert(tk.END, curr_account.account_name)
 
     """
     transaction_callback function responsibilities:
