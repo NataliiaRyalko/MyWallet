@@ -44,6 +44,7 @@ class App_GUI(tk.Frame):
         self.quit.grid(row=11, column=1)
         #listboxes
         self.listbox=tk.Listbox(self,height=5,selectmode='SINGLE',yscrollcommand = True)
+        self.listbox.yview()
         self.listbox.grid(row = 7,column = 1)
         #window settings
         self.master.title('My wallet')
@@ -59,11 +60,12 @@ class App_GUI(tk.Frame):
     def account_callback(self):
         self.entered_value = int(self.input_account_value.get())
         self.entered_name = self.input_account_name.get()
-        wallet.add_account(Account(self.entered_name, self.entered_value))
+        account = Account(self.entered_name, self.entered_value)
+        wallet.add_account(account)
         account_list = wallet.account_list
-        account_list_index = len(account_list) - 1
-        curr_account = account_list[account_list_index]
-        self.listbox.insert(tk.END, curr_account.account_name)
+        account_key = account.account_name
+        curr_account = account_list[account_key]
+        self.listbox.insert(tk.END, account_key)
 
     """
     transaction_callback function responsibilities:
@@ -75,15 +77,16 @@ class App_GUI(tk.Frame):
     def transaction_callback(self):
 
         self.entered_value = int(self.input_transaction_value.get())
-        print(self.entered_value)
-        selected_account = self.listbox.curselection()# it's tuple with selected element index
-        print (selected_account[0])# get value of tuple
-        selected_account_value = selected_account[0]
-        account_list = wallet.account_list
-        # the value of tuple is value of index account in account_list
-        curr_account = account_list[selected_account_value]
-        wallet.add_transaction(Transaction(self.entered_value, curr_account))
+        # print(self.entered_value)
+        selected_account = self.listbox.curselection()
+        # print(self.listbox.get(selected_account))
+        account_key = self.listbox.get(selected_account,last=None)
+        print(account_key)
+        curr_account = wallet.account_list[account_key]
+        transaction = Transaction(self.entered_value,curr_account)
+        wallet.add_transaction(transaction)
         print(curr_account.account_value)
+
 
 root = tk.Tk()
 app = App_GUI(master=root)

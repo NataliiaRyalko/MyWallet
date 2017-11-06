@@ -36,11 +36,12 @@ class Transaction(object):
 
 class Wallet(object):
     transaction_list = []
-    account_list = []
+    account_list = {}
 
     def add_account(self,account):
-        self.account_list.append(account)
-        return account
+        self.account_list[account.account_name] = account
+
+
 
     def add_transaction(self, transaction):
         self.transaction_list.append(transaction)
