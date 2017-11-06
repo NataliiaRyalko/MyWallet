@@ -39,7 +39,7 @@ label.pack()
 label.after_idle(tick)
 
 def callback():
-	time_value = label['text']
+	time_value = date_value+' '+label['text']
 	tr_value = entry.get()
 	transaction_stack[time_value] = transaction
 	transaction["value"] = tr_value
