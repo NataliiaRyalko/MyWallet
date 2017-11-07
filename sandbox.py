@@ -44,7 +44,6 @@ class App_GUI(tk.Frame):
         self.quit.grid(row=11, column=1)
         #listboxes
         self.listbox=tk.Listbox(self,height=5,selectmode='SINGLE',yscrollcommand = True)
-        self.listbox.yview()
         self.listbox.grid(row = 7,column = 1)
         #window settings
         self.master.title('My wallet')
