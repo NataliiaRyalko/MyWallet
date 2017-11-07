@@ -54,10 +54,12 @@ class App_GUI(tk.Frame):
         self.add_category = tk.Button(self, text="Add category", command=self.category_callback)
         self.add_category.grid(row=5, column=2)
         #listboxes
-        self.account_listbox=tk.Listbox(self, height=5, selectmode='SINGLE', yscrollcommand = True)
+        self.account_listbox=tk.Listbox(self, height=5, selectmode='SINGLE',exportselection = 0)
+        # self.account_listbox.bind('<<ListboxSelect>>', self.on_select)
         self.account_listbox.grid(row = 7, column = 1)
 
-        self.category_listbox = tk.Listbox(self, height=5, selectmode='SINGLE', yscrollcommand=True)
+        self.category_listbox = tk.Listbox(self, height=5, selectmode='SINGLE',)
+
         self.category_listbox.grid(row=7, column=2)
         #window settings
         self.master.title('My wallet')
@@ -94,8 +96,9 @@ class App_GUI(tk.Frame):
         account_key = self.account_listbox.get(selected_account, last=None)
         category_selected = self.category_listbox.curselection()
         category_name = self.category_listbox.get(category_selected, last=None)
+        # category_name = self.input_category_name.get()
         curr_account = wallet.account_list[account_key]
-        transaction = Transaction(self.entered_value,curr_account,category=None)#,category_name)
+        transaction = Transaction(self.entered_value,curr_account,category_name)
         wallet.add_transaction(transaction)
         print(curr_account.account_value)
         print(wallet.transaction_list)
