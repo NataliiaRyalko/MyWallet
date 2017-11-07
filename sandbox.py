@@ -57,14 +57,14 @@ class App_GUI(tk.Frame):
     """
 
     def account_callback(self):
-        self.entered_value = int(self.input_account_value.get())
+        self.entered_value = Decimal(self.input_account_value.get()).quantize(Decimal('0.01'), rounding=ROUND_DOWN)
         self.entered_name = self.input_account_name.get()
         account = Account(self.entered_name, self.entered_value)
         wallet.add_account(account)
         account_list = wallet.account_list
         account_key = account.account_name
-        curr_account = account_list[account_key]
         self.listbox.insert(tk.END, account_key)
+        print(account_list)
 
     """
     transaction_callback function responsibilities:
@@ -75,7 +75,7 @@ class App_GUI(tk.Frame):
     """
     def transaction_callback(self):
 
-        self.entered_value = int(self.input_transaction_value.get())
+        self.entered_value = Decimal(self.input_transaction_value.get()).quantize(Decimal('0.01'), rounding=ROUND_DOWN)
         # print(self.entered_value)
         selected_account = self.listbox.curselection()
         # print(self.listbox.get(selected_account))
@@ -85,6 +85,7 @@ class App_GUI(tk.Frame):
         transaction = Transaction(self.entered_value,curr_account)
         wallet.add_transaction(transaction)
         print(curr_account.account_value)
+        print(wallet.transaction_list)
 
 
 root = tk.Tk()

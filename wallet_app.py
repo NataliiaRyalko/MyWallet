@@ -8,7 +8,7 @@ This app helps to control your own finances, your wallet.
 """
 import time
 from datetime import datetime
-
+from decimal import *
 
 
 
@@ -35,7 +35,7 @@ class Transaction(object):
 
 
 class Wallet(object):
-    transaction_list = []
+    transaction_list = {}
     account_list = {}
 
     def add_account(self,account):
@@ -44,7 +44,7 @@ class Wallet(object):
 
 
     def add_transaction(self, transaction):
-        self.transaction_list.append(transaction)
+        self.transaction_list[transaction.transaction_name] = transaction
 
 
 wallet = Wallet()
