@@ -18,15 +18,16 @@ class Account(object):
         self.account_name = name
         self.account_value = value
 
-
 class Transaction(object):
     # var name always is string, var value is number, account is object of Account class
-    def __init__(self, value, account):
+    def __init__(self, value, account,category):
         self.transaction_name = datetime.now().strftime("%H:%M:%S %d-%m-%y")
         self.transaction_value = value
         self.transaction_account = account
+        self.category = category
         spent_account_money = self.set_spend()
         account.account_value = spent_account_money
+
 
     # set
     def set_spend(self):
@@ -37,18 +38,16 @@ class Transaction(object):
 class Wallet(object):
     transaction_list = {}
     account_list = {}
+    category_list = {}
 
     def add_account(self,account):
         self.account_list[account.account_name] = account
-
-
 
     def add_transaction(self, transaction):
         self.transaction_list[transaction.transaction_name] = transaction
 
 
 wallet = Wallet()
-
 
 
 
