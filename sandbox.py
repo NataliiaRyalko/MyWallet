@@ -13,15 +13,23 @@ class App_GUI(tk.Frame):
         #input fields
         self.input_transaction_value = tk.Entry(self)
         self.input_transaction_value.grid(row = 9, column = 1)
+        self.input_transaction_value.delete(0, tk.END)
+        self.input_transaction_value.insert(0, "10")
 
         self.input_account_value = tk.Entry(self)
         self.input_account_value.grid(row=4, column=1)
+        self.input_account_value.delete(0, tk.END)
+        self.input_account_value.insert(0, "100")
 
         self.input_account_name = tk.Entry(self)
         self.input_account_name.grid(row=2, column=1)
+        self.input_account_name.delete(0, tk.END)
+        self.input_account_name.insert(0, "cash")
 
         self.input_category_name = tk.Entry(self)
         self.input_category_name.grid(row=4, column=2)
+        self.input_category_name.delete(0, tk.END)
+        self.input_category_name.insert(0, "transport")
         #lebels
         self.input_account_name_label = tk.Label(self, text ="Enter Account name:")
         self.input_account_name_label.grid(row = 1, column = 1)
@@ -79,7 +87,7 @@ class App_GUI(tk.Frame):
         account_list = wallet.account_list
         account_key = account.account_name
         self.account_listbox.insert(tk.END, account_key)
-        print(account_list)
+        # print(account_list)
 
     """
     transaction_callback function responsibilities:
@@ -100,11 +108,13 @@ class App_GUI(tk.Frame):
         wallet.add_transaction(transaction)
         print(curr_account.account_value)
         print(wallet.transaction_list)
-        print(wallet.category_list)
+
 
     def category_callback(self):
         category_name = self.input_category_name.get()
         self.category_listbox.insert(tk.END, category_name)
+
+
 
 
 
