@@ -100,9 +100,7 @@ class App_GUI(tk.Frame):
         wallet.add_transaction(transaction)
         print(curr_account.account_value)
         print(wallet.transaction_list)
-        wallet.category_list[category_name] = []
-        wallet.category_list[category_name].append(transaction)
-        print (wallet.category_list)
+        print(wallet.category_list)
 
     def category_callback(self):
         category_name = self.input_category_name.get()

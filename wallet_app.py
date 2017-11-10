@@ -45,7 +45,8 @@ class Wallet(object):
 
     def add_transaction(self, transaction):
         self.transaction_list[transaction.transaction_name] = transaction
-
+        self.category_list[transaction.category] = self.transaction_list
+        self.category_list[transaction.category] = self.transaction_list
 
 wallet = Wallet()
 
