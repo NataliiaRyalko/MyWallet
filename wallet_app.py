@@ -46,12 +46,12 @@ class Wallet(object):
     def add_transaction(self, transaction):
         self.transaction_list[transaction.transaction_name] = transaction
         self.category_list[transaction.category] = {}
-        for item in self.transaction_list.values():
-            for key in self.category_list:
-                if item.category == key:
-                    item_dict = {}
+        for item in self.transaction_list.values(): # get every transaction_dict value
+            for key in self.category_list: # get every category_dict key
+                if item.category == key: # compare value category attribute with key
+                    item_dict = {} # create new dict with needed value
                     item_dict[item.transaction_name] = item
-                    self.category_list[key].update(item_dict)
+                    self.category_list[key].update(item_dict) # push to category dict
         print(self.category_list, "this one")
 
 
