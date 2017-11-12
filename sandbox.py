@@ -49,6 +49,12 @@ class App_GUI(tk.Frame):
         self.input_transaction_value_label = tk.Label(self, text="Select category:")
         self.input_transaction_value_label.grid(row=6, column=2)
 
+
+        self.account_display_label = tk.Label(self, text="Current account value:")
+        self.account_display_label.grid(row=1, column=2)
+
+        self.account_display = tk.Label(self)
+        self.account_display.grid(row=2, column=2)
         #buttons
         self.add_account_btn = tk.Button(self, text="Add Account", command=self.account_callback)
         self.add_account_btn.grid(row=5, column=1)
@@ -84,8 +90,7 @@ class App_GUI(tk.Frame):
         self.entered_name = self.input_account_name.get()
         account = Account(self.entered_name, self.entered_value)
         wallet.add_account(account)
-        account_key = account.account_name
-        self.account_listbox.insert(tk.END, account_key)
+        self.account_listbox.insert(tk.END, account.account_name)
 
 
     """
@@ -102,7 +107,9 @@ class App_GUI(tk.Frame):
         selected_account_key = self.account_listbox.get(self.account_listbox.curselection(), last=None)
         transaction = Transaction(self.entered_value, wallet.account_list[selected_account_key], selected_category_name)
         wallet.add_transaction(transaction)
-        print(wallet.account_list[selected_account_key].account_value)
+        self.account_display['text'] = str(wallet.account_list[selected_account_key].account_value) + " UAH"
+        self.account_display['fg'] = '#42f477'
+        self.account_display['bg'] = "#000000"
         print(wallet.transaction_list)
 
 
