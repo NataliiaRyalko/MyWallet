@@ -51,11 +51,11 @@ class App_GUI(tk.Frame):
         self.account_display = tk.Label(self)
         self.account_display.grid(row=2, column=2)
 
-        self.display_transaction_label = tk.Label(self,text="Last Transaction:")
-        self.display_transaction_label.grid(row=8,column=2)
+        self.transaction_label_display = tk.Label(self, text="Last Transaction:")
+        self.transaction_label_display.grid(row=8, column=2)
 
-        self.display_transaction = tk.Label(self)
-        self.display_transaction_label.grid(row=9,column=2)
+        self.transaction_display = tk.Label(self)
+        self.transaction_display.grid(row=9, column=2)
 
         #buttons
         self.add_account_btn = tk.Button(self, text="Add Account", command=self.account_callback)
@@ -74,7 +74,6 @@ class App_GUI(tk.Frame):
         self.account_listbox.grid(row = 7, column = 1)
 
         self.category_listbox = tk.Listbox(self, height=5, selectmode='SINGLE',)
-
         self.category_listbox.grid(row=7, column=2)
         #window settings
         self.master.title('My wallet')
@@ -109,9 +108,8 @@ class App_GUI(tk.Frame):
         selected_account_key = self.account_listbox.get(self.account_listbox.curselection(), last=None)
         transaction = Transaction(self.entered_value, wallet.account_list[selected_account_key], selected_category_name)
         wallet.add_transaction(transaction)
-        self.account_display['text'] = str(wallet.account_list[selected_account_key].account_value) + " UAH"
-        self.account_display['fg'] = '#42f477'
-        self.account_display['bg'] = "#000000"
+        self.display_transaction(transaction)
+        self.display_account(wallet.account_list[selected_account_key])
         print(wallet.transaction_list)
 
 
@@ -119,9 +117,17 @@ class App_GUI(tk.Frame):
         category_name = self.input_category_name.get()
         self.category_listbox.insert(tk.END, category_name)
 
+    def display_transaction(self,transaction):
+        self.transaction_display['text'] = "Category: "+transaction.category + '\n' \
+                                           + transaction.transaction_name +"\n" \
+                                           +"Value: "+str(transaction.transaction_value)
+        self.transaction_display['fg'] = '#42f477'
+        self.transaction_display['bg'] = "#000000"
 
-
-
+    def display_account(self,account):
+        self.account_display['text'] = str(account.account_value) + " UAH"
+        self.account_display['fg'] = '#42f477'
+        self.account_display['bg'] = "#000000"
 
 
 

@@ -21,7 +21,7 @@ class Account(object):
 class Transaction(object):
     # var name always is string, var value is number, account is object of Account class
     def __init__(self, value, account,category):
-        self.transaction_name = datetime.now().strftime("%H:%M:%S %d-%m-%y")
+        self.transaction_name = datetime.now().strftime("%d-%m-%y %H:%M:%S")
         self.transaction_value = value
         self.transaction_account = account
         self.category = category
@@ -45,7 +45,7 @@ class Wallet(object):
 
     def add_transaction(self, transaction):
         self.transaction_list[transaction.transaction_name] = transaction
-        self.category_list[transaction.category] = {}
+        # self.category_list[transaction.category] = {}
         # for item in self.transaction_list.values(): # get every transaction_dict value
         #     for key in self.category_list: # get every category_dict key
         #         if item.category == key: # compare value category attribute with key
