@@ -13,22 +13,18 @@ class App_GUI(tk.Frame):
         #input fields
         self.input_transaction_value = tk.Entry(self)
         self.input_transaction_value.grid(row = 9, column = 1)
-        self.input_transaction_value.delete(0, tk.END)
         self.input_transaction_value.insert(0, "10")
 
         self.input_account_value = tk.Entry(self)
         self.input_account_value.grid(row=4, column=1)
-        self.input_account_value.delete(0, tk.END)
         self.input_account_value.insert(0, "100")
 
         self.input_account_name = tk.Entry(self)
         self.input_account_name.grid(row=2, column=1)
-        self.input_account_name.delete(0, tk.END)
         self.input_account_name.insert(0, "cash")
 
         self.input_category_name = tk.Entry(self)
         self.input_category_name.grid(row=4, column=2)
-        self.input_category_name.delete(0, tk.END)
         self.input_category_name.insert(0, "transport")
         #lebels
         self.input_account_name_label = tk.Label(self, text ="Enter Account name:")
@@ -49,12 +45,18 @@ class App_GUI(tk.Frame):
         self.input_transaction_value_label = tk.Label(self, text="Select category:")
         self.input_transaction_value_label.grid(row=6, column=2)
 
-
         self.account_display_label = tk.Label(self, text="Current account value:")
         self.account_display_label.grid(row=1, column=2)
 
         self.account_display = tk.Label(self)
         self.account_display.grid(row=2, column=2)
+
+        self.display_transaction_label = tk.Label(self,text="Last Transaction:")
+        self.display_transaction_label.grid(row=8,column=2)
+
+        self.display_transaction = tk.Label(self)
+        self.display_transaction_label.grid(row=9,column=2)
+
         #buttons
         self.add_account_btn = tk.Button(self, text="Add Account", command=self.account_callback)
         self.add_account_btn.grid(row=5, column=1)
