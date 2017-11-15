@@ -118,8 +118,8 @@ class App_GUI(tk.Frame):
         self.category_listbox.insert(tk.END, category_name)
 
     def display_transaction(self,transaction):
-        self.transaction_display['text'] = "Category: "+transaction.category + '\n' \
-                                           + transaction.transaction_name +"\n" \
+        self.transaction_display['text'] = transaction.transaction_name +"\n" \
+                                           +"Category: "+transaction.category + '\n' \
                                            +"Value: "+str(transaction.transaction_value)
         self.transaction_display['fg'] = '#42f477'
         self.transaction_display['bg'] = "#000000"

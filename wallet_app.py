@@ -39,7 +39,7 @@ class Wallet(object):
     transaction_list = {}
     account_list = {}
     category_list = {}
-
+    stack_list = {}
     def add_account(self,account):
         self.account_list[account.account_name] = account
 
