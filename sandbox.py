@@ -110,7 +110,8 @@ class App_GUI(tk.Frame):
         wallet.add_transaction(transaction)
         self.display_transaction(transaction)
         self.display_account(wallet.account_list[selected_account_key])
-        print(wallet.transaction_list)
+        print(wallet.transaction_list[transaction.transaction_name].transaction_account, \
+              wallet.transaction_list[transaction.transaction_name].set_spend())
 
 
     def category_callback(self):
@@ -125,10 +126,9 @@ class App_GUI(tk.Frame):
         self.transaction_display['bg'] = "#000000"
 
     def display_account(self,account):
-        self.account_display['text'] = str(account.account_value) + " UAH"
+        self.account_display['text'] = str(account) + " UAH"
         self.account_display['fg'] = '#42f477'
         self.account_display['bg'] = "#000000"
-
 
 
 root = tk.Tk()

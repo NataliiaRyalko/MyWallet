@@ -25,23 +25,14 @@ class Transaction(object):
         self.transaction_value = value
         self.transaction_account = account
         self.category = category
-        spent_account_money = self.set_spend()
-        account.account_value = spent_account_money
-
-
-    # set
-    def set_spend(self):
-        spend = self.transaction_account.account_value - self.transaction_value
-        return spend
-
 
 class Wallet(object):
     transaction_list = {}
     account_list = {}
     category_list = {}
-    stack_list = {}
+
     def add_account(self,account):
-        self.account_list[account.account_name] = account
+        self.account_list[account.account_name] = account.account_value
 
     def add_transaction(self, transaction):
         self.transaction_list[transaction.transaction_name] = transaction
