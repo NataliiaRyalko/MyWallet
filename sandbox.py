@@ -109,9 +109,8 @@ class App_GUI(tk.Frame):
         transaction = Transaction(self.entered_value, wallet.account_list[selected_account_key], selected_category_name)
         wallet.add_transaction(transaction)
         self.display_transaction(transaction)
+        wallet.spend(wallet.account_list[selected_account_key],transaction)
         self.display_account(wallet.account_list[selected_account_key])
-        print(wallet.transaction_list[transaction.transaction_name].transaction_account, \
-              wallet.transaction_list[transaction.transaction_name].set_spend())
 
 
     def category_callback(self):
