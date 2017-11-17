@@ -38,7 +38,7 @@ class Wallet(object):
         self.transaction_list[transaction.transaction_name] = transaction
 
     def spend(self,account,transaction):
-        Account.account_value =  account-self.transaction_list[transaction.transaction_name].transaction_value
+        return  account-self.transaction_list[transaction.transaction_name].transaction_value
 
 wallet = Wallet()
 

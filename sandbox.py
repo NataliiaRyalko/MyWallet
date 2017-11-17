@@ -109,7 +109,7 @@ class App_GUI(tk.Frame):
         transaction = Transaction(self.entered_value, wallet.account_list[selected_account_key], selected_category_name)
         wallet.add_transaction(transaction)
         self.display_transaction(transaction)
-        wallet.spend(wallet.account_list[selected_account_key],transaction)
+        wallet.account_list[selected_account_key] = wallet.spend(wallet.account_list[selected_account_key],transaction)
         self.display_account(wallet.account_list[selected_account_key])
 
 
