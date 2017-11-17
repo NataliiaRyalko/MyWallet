@@ -104,14 +104,15 @@ class App_GUI(tk.Frame):
     def transaction_callback(self):
 
         self.entered_value = Decimal(self.input_transaction_value.get()).quantize(Decimal('0.01'), rounding=ROUND_DOWN)
-        selected_category_name = self.category_listbox.get(self.category_listbox.curselection(), last=None)
-        selected_account_key = self.account_listbox.get(self.account_listbox.curselection(), last=None)
-        transaction = Transaction(self.entered_value, wallet.account_list[selected_account_key], selected_category_name)
+        selected_category = self.category_listbox.get(self.category_listbox.curselection(), last=None)
+        selected_account = self.account_listbox.get(self.account_listbox.curselection(), last=None)
+        transaction = Transaction(self.entered_value, selected_account, selected_category)
         wallet.add_transaction(transaction)
         self.display_transaction(transaction)
-        wallet.account_list[selected_account_key] = wallet.spend(wallet.account_list[selected_account_key],transaction)
-        self.display_account(wallet.account_list[selected_account_key])
-
+        wallet.account_list[selected_account] = wallet.spend(wallet.account_list[selected_account],
+                                                             wallet.transaction_list[transaction.transaction_name]["value"])
+        self.display_account(wallet.account_list[selected_account])
+        print(wallet.transaction_list)
 
     def category_callback(self):
         category_name = self.input_category_name.get()

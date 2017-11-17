@@ -35,10 +35,14 @@ class Wallet(object):
         self.account_list[account.account_name] = account.account_value
 
     def add_transaction(self, transaction):
-        self.transaction_list[transaction.transaction_name] = transaction
+        self.transaction_list[transaction.transaction_name] = {}
+        tr_cell = self.transaction_list[transaction.transaction_name]
+        tr_cell["value"]  = transaction.transaction_value
+        tr_cell["category"] = transaction.category
+        tr_cell['account'] = transaction.transaction_account
 
     def spend(self,account,transaction):
-        return  account-self.transaction_list[transaction.transaction_name].transaction_value
+        return  account-transaction
 
 wallet = Wallet()
 
