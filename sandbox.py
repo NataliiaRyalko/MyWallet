@@ -109,7 +109,7 @@ class App_GUI(tk.Frame):
         wallet.account_list[selected_account] = wallet.spend(wallet.account_list[selected_account],
                                                              wallet.transaction_list[transaction.transaction_name]["value"])
         self.display_account(wallet.account_list[selected_account])
-        print(wallet.transaction_list)
+        print(wallet.transaction_list,"this is transaction list")
         file = open('test.txt', "w")
         file.write(str(wallet.transaction_list))
         file.close()
