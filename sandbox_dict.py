@@ -58,3 +58,7 @@ for i in test:
 		print('ok')
 	else:
 		print('not ok')
+
+file = open('test.txt',"w")
+file.write("hello\n")
+file.close()
