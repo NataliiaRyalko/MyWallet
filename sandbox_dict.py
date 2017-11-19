@@ -62,3 +62,4 @@ for i in test:
 file = open('test.txt',"w")
 file.write("hello\n")
 file.close()
+import sys
