@@ -88,11 +88,12 @@ class App_GUI(tk.Frame):
     def account_callback(self):
         self.entered_value = Decimal(self.input_account_value.get()).quantize(Decimal('0.01'), rounding=ROUND_DOWN)
         self.entered_name = self.input_account_name.get()
-        self.save_to_file('accounts.txt',wallet.account_list)
-        self.account_listbox.insert(tk.END, self.entered_name)
         account = Account(self.entered_name, self.entered_value)
         wallet.add_account(account)
         self.display_account(wallet.account_list[self.entered_name])
+        self.save_to_file('accounts.txt',wallet.account_list)
+        self.account_listbox.insert(tk.END, self.entered_name)
+
 
     """
     transaction_callback function responsibilities:
