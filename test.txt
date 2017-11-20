@@ -1,1 +1,1 @@
-hello
+{'20-11-17 08:41:57': {'value': Decimal('10.00'), 'category': 'transport', 'account': 'cash'}, '20-11-17 08:42:00': {'value': Decimal('10.00'), 'category': 'transport', 'account': 'cash'}}

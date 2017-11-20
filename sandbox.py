@@ -91,6 +91,7 @@ class App_GUI(tk.Frame):
         self.account_listbox.insert(tk.END, self.entered_name)
         account = Account(self.entered_name, self.entered_value)
         wallet.add_account(account)
+        self.display_account(wallet.account_list[self.entered_name])
     """
     transaction_callback function responsibilities:
        -gets data for transaction creating
@@ -109,7 +110,7 @@ class App_GUI(tk.Frame):
         wallet.account_list[selected_account] = wallet.spend(wallet.account_list[selected_account],
                                                              wallet.transaction_list[transaction.transaction_name]["value"])
         self.display_account(wallet.account_list[selected_account])
-        print(wallet.transaction_list,"this is transaction list")
+        print(wallet.transaction_list, 'this is transaction list')
         file = open('test.txt', "w")
         file.write(str(wallet.transaction_list))
         file.close()
