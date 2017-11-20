@@ -88,10 +88,12 @@ class App_GUI(tk.Frame):
     def account_callback(self):
         self.entered_value = Decimal(self.input_account_value.get()).quantize(Decimal('0.01'), rounding=ROUND_DOWN)
         self.entered_name = self.input_account_name.get()
+        self.save_to_file('accounts.txt',wallet.account_list)
         self.account_listbox.insert(tk.END, self.entered_name)
         account = Account(self.entered_name, self.entered_value)
         wallet.add_account(account)
         self.display_account(wallet.account_list[self.entered_name])
+
     """
     transaction_callback function responsibilities:
        -gets data for transaction creating
@@ -111,9 +113,7 @@ class App_GUI(tk.Frame):
                                                              wallet.transaction_list[transaction.transaction_name]["value"])
         self.display_account(wallet.account_list[selected_account])
         print(wallet.transaction_list, 'this is transaction list')
-        file = open('test.txt', "w")
-        file.write(str(wallet.transaction_list))
-        file.close()
+        self.save_to_file('transactions.txt',wallet.transaction_list)
 
     def category_callback(self):
         category_name = self.input_category_name.get()
@@ -131,6 +131,10 @@ class App_GUI(tk.Frame):
         self.account_display['fg'] = '#42f477'
         self.account_display['bg'] = "#000000"
 
+    def save_to_file(self,file_name,data):
+        file = open(file_name, "w")
+        file.write(str(data))
+        file.close()
 
 root = tk.Tk()
 app = App_GUI(master=root)
