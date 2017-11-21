@@ -1,6 +1,6 @@
 import tkinter as tk
 from wallet_app import *
-
+import ast
 
 class App_GUI(tk.Frame):
 
@@ -92,7 +92,6 @@ class App_GUI(tk.Frame):
         wallet.add_account(account)
         self.save_to_file('accounts.txt', wallet.account_list)
         self.display_account(wallet.account_list[self.entered_name])
-        self.save_to_file('accounts.txt',wallet.account_list)
         self.account_listbox.insert(tk.END, self.entered_name)
 
 
@@ -137,6 +136,13 @@ class App_GUI(tk.Frame):
         file = open(file_name, "w")
         file.write(str(data))
         file.close()
+    def read_from_file(self,file_name):
+        file = open(file_name, 'r')
+        read_file = file.read()
+        file.close()
+        read_file = ast.literal_eval(read_file)
+        return read_file
+
 
 root = tk.Tk()
 app = App_GUI(master=root)

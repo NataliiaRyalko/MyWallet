@@ -59,12 +59,14 @@ for i in test:
 	else:
 		print('not ok')
 
-file = open('test.txt',"")
-file.write("hello\n")
+file = open('test.txt',"w")
+file.write('{1:"hello"}')
 file.close()
-import sys
-print (sys.version_info)
-#
+
+
+# import sys
+# print (sys.version_info)
+
 # import PySide
 # from PySide.QtGui import QMessageBox, QApplication
 # # Create the application object
