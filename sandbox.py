@@ -90,6 +90,7 @@ class App_GUI(tk.Frame):
         self.entered_name = self.input_account_name.get()
         account = Account(self.entered_name, self.entered_value)
         wallet.add_account(account)
+        self.save_to_file('accounts.txt', wallet.account_list)
         self.display_account(wallet.account_list[self.entered_name])
         self.save_to_file('accounts.txt',wallet.account_list)
         self.account_listbox.insert(tk.END, self.entered_name)
