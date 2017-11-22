@@ -1,6 +1,6 @@
 import tkinter as tk
 from wallet_app import *
-import ast
+from decimal import *
 
 class App_GUI(tk.Frame):
 
@@ -77,7 +77,7 @@ class App_GUI(tk.Frame):
         self.category_listbox.grid(row=7, column=2)
         #window settings
         self.master.title('My wallet')
-        # self.master.geometry("500x300")
+
 
     """
     account_callback function responsibilities:
@@ -136,12 +136,6 @@ class App_GUI(tk.Frame):
         file = open(file_name, "w")
         file.write(str(data))
         file.close()
-    def read_from_file(self,file_name):
-        file = open(file_name, 'r')
-        read_file = file.read()
-        file.close()
-        read_file = ast.literal_eval(read_file)
-        return read_file
 
 
 root = tk.Tk()

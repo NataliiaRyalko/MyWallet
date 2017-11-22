@@ -6,10 +6,9 @@ This app helps to control your own finances, your wallet.
     App connects to database and makes a manipulation with data, after that returns the data to db.
 
 """
-import time
-from datetime import datetime
-from decimal import *
 
+from datetime import datetime
+import ast
 
 
 class Account(object):
@@ -35,14 +34,20 @@ class Wallet(object):
         self.account_list[account.account_name] = account.account_value
 
     def add_transaction(self, transaction):
-        self.transaction_list[transaction.transaction_name] = {}
-        tr_cell = self.transaction_list[transaction.transaction_name]
+        tr_cell = self.transaction_list[transaction.transaction_name] = {}
         tr_cell["value"]  = transaction.transaction_value
         tr_cell["category"] = transaction.category
         tr_cell['account'] = transaction.transaction_account
 
     def spend(self,account,transaction):
         return  account-transaction
+
+    def read_from_file(self,file_name):
+        file = open(file_name, 'r')
+        read_file = file.read()
+        file.close()
+        read_file = ast.literal_eval(read_file)
+        return read_file
 
 wallet = Wallet()
 

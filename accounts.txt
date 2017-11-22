@@ -1,1 +1,1 @@
-{'cash': Decimal('100.00'), 'crd': Decimal('1000.00')}
+{'cash': Decimal('100.00')}
