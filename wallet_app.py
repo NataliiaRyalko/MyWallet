@@ -52,4 +52,3 @@ class Wallet(object):
 wallet = Wallet()
 
 
-

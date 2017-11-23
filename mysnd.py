@@ -62,8 +62,14 @@ for i in test:
 file = open('test.txt',"w")
 file.write('{1:"hello"}')
 file.close()
-
-
+import ast
+def read_from_file(file_name):
+        file = open(file_name, 'r')
+        read_file = file.read()
+        file.close()
+        read_file = ast.literal_eval(read_file)
+        return read_file
+print read_from_file('test.txt')
 # import sys
 # print (sys.version_info)
 
