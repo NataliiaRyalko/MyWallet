@@ -28,7 +28,7 @@ class Transaction(object):
 class Wallet(object):
     transaction_list = {}
     account_list = {}
-    category_list = {}
+    category_list = self.read_from_file('test.txt')
 
     def add_account(self,account):
         self.account_list[account.account_name] = account.account_value
@@ -50,5 +50,5 @@ class Wallet(object):
         return read_file
 
 wallet = Wallet()
-
+print (wallet.category_list)
 
