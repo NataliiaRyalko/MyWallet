@@ -77,7 +77,7 @@ class App_GUI(tk.Frame):
         self.category_listbox.grid(row=7, column=2)
         #window settings
         self.master.title('My wallet')
-
+     #   self.after(100, self.insert_from_file(wallet.read_from_file('transactions.txt')))
 
     """
     account_callback function responsibilities:
@@ -136,8 +136,11 @@ class App_GUI(tk.Frame):
         file = open(file_name, "w")
         file.write(str(data))
         file.close()
-
-
+	
+    def insert_from_file(self,read_func):
+        for item in read_func:
+           self.category_listbox.insert(tk.END, item['category'])
+			
 root = tk.Tk()
 app = App_GUI(master=root)
 app.mainloop()
