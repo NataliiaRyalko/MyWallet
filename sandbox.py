@@ -1,7 +1,7 @@
 import tkinter as tk
 from wallet_app import *
 from decimal import *
-import os
+
 class App_GUI(tk.Frame):
 
     def __init__(self, master=None):
@@ -78,22 +78,22 @@ class App_GUI(tk.Frame):
         #window settings
         self.master.title('My wallet')
         self.read_from_file('categories.txt')
-		
+
     def account_callback(self):
-        self.entered_value = Decimal(self.input_account_value.get()).quantize(Decimal('0.01'), rounding=ROUND_DOWN)
-        self.entered_name = self.input_account_name.get()
-        account = Account(self.entered_name, self.entered_value)
+        entered_value = Decimal(self.input_account_value.get()).quantize(Decimal('0.01'), rounding=ROUND_DOWN)
+        entered_name = self.input_account_name.get()
+        account = Account(entered_name, entered_value)
         wallet.add_account(account)
         self.save_to_file('accounts.txt', wallet.account_list, 'w')
-        self.display_account(wallet.account_list[self.entered_name])
-        self.account_listbox.insert(tk.END, self.entered_name)
+        self.display_account(wallet.account_list[entered_name])
+        self.account_listbox.insert(tk.END, entered_name)
 
     def transaction_callback(self):
 
-        self.entered_value = Decimal(self.input_transaction_value.get()).quantize(Decimal('0.01'), rounding=ROUND_DOWN)
+        entered_value = Decimal(self.input_transaction_value.get()).quantize(Decimal('0.01'), rounding=ROUND_DOWN)
         selected_category = self.category_listbox.get(self.category_listbox.curselection(), last=None)
         selected_account = self.account_listbox.get(self.account_listbox.curselection(), last=None)
-        transaction = Transaction(self.entered_value, selected_account, selected_category)
+        transaction = Transaction(entered_value, selected_account, selected_category)
         wallet.add_transaction(transaction)
         self.display_transaction(transaction)
         wallet.account_list[selected_account] = wallet.spend(wallet.account_list[selected_account],
@@ -106,7 +106,7 @@ class App_GUI(tk.Frame):
         category_name = self.input_category_name.get()
         self.category_listbox.insert(tk.END, category_name)
         self.save_to_file('categories.txt',category_name, "a")
-        
+
     def display_transaction(self,transaction):
         self.transaction_display['text'] = ("Category: "+transaction.category + '\n' +
                                             transaction.transaction_name +"\n" +
@@ -121,17 +121,21 @@ class App_GUI(tk.Frame):
 
     def save_to_file(self,file_name,data,mode):
         file = open(file_name, mode)
-        file.write(str(data)+"\n")
-        file.close()
-	
+        if mode == "a":
+            file.write(str(data)+"\n")
+            file.close()
+        elif mode == "w":
+            file.write(str(data))
+            file.close()
+
     def read_from_file(self,file_name):
         file = open(file_name,"r")
         for line in file:
-                data = file.readline()[:-1]			 
-                self.category_listbox.insert(tk.END, data)			
+                data = file.readline()[:-1]
+                self.category_listbox.insert(tk.END, data)
+        self.category_listbox.delete(tk.END)
         file.close()
-		
-			
+
 root = tk.Tk()
 app = App_GUI(master=root)
 app.mainloop()
