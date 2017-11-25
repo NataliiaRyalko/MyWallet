@@ -80,7 +80,7 @@ class App_GUI(tk.Frame):
         self.read_from_file('categories.txt')
 
     def account_callback(self):
-        entered_value = self.input_account_value.get()
+        entered_value = Decimal(self.input_account_value.get()).quantize(Decimal('0.01'), rounding=ROUND_DOWN)
         entered_name = self.input_account_name.get()
         account = Account(entered_name, entered_value)
         wallet.add_account(account)
@@ -89,7 +89,7 @@ class App_GUI(tk.Frame):
 
     def transaction_callback(self):
 
-        entered_value = self.input_transaction_value.get()
+        entered_value = Decimal(self.input_transaction_value.get()).quantize(Decimal('0.01'), rounding=ROUND_DOWN)
         selected_category = self.category_listbox.get(self.category_listbox.curselection(), last=None)
         selected_account = self.account_listbox.get(self.account_listbox.curselection(), last=None)
         transaction = Transaction(entered_value, selected_account, selected_category)
@@ -111,7 +111,7 @@ class App_GUI(tk.Frame):
         self.transaction_display['text'] = ("Category: "+transaction.category + '\n' +
                                             transaction.transaction_name +"\n" +
                                             "Value: " +
-                                             str(transaction.transaction_value))
+                                             str(transaction.transaction_value)+"UAH")
         self.transaction_display['fg'] = '#42f477'
         self.transaction_display['bg'] = "#000000"
 
