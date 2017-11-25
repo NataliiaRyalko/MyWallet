@@ -49,7 +49,7 @@
 # btn = Button(root, text = 'get',command = callback)
 # btn.pack()
 # root.mainloop()
-
+'''
 test  = {}
 test['one'] = 'one'
 
@@ -70,6 +70,28 @@ def read_from_file(file_name):
         read_file = ast.literal_eval(read_file)
         return read_file
 print read_from_file('test.txt')
+
+'''
+
+my_dict = {'key' : [1,2,3]}
+
+import json
+def dict_to_binary(the_dict):
+    string = json.dumps(the_dict)
+    binary = ' '.join(format(ord(letter), 'b') for letter in string)
+    return binary
+
+
+def binary_to_dict(the_binary):
+    jsn = ''.join(chr(int(x, 2)) for x in the_binary.split())
+    d = json.loads(jsn)  
+    return d
+
+bin_dict = dict_to_binary(my_dict)
+print (bin_dict)
+
+dct = binary_to_dict(bin_dict)
+print (dct)
 # import sys
 # print (sys.version_info)
 
