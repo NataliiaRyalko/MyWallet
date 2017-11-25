@@ -1,1 +1,1 @@
-{'23-11-17 07:22:21': {'category': 'transport', 'value': Decimal('10.00'), 'account': 'cash'}}
+{'25-11-17 09:18:27': {'account': 'cash', 'value': Decimal('10.00'), 'category': 'transport'}}

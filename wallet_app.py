@@ -41,13 +41,8 @@ class Wallet(object):
     def spend(self,account,transaction):
         return  account-transaction
 
-    def read_from_file(self,file_name):
-        file = open(file_name, 'r')
-        read_file = file.read()
-        file.close()
-        read_file = ast.literal_eval(read_file)
-        return read_file
+    
 
 wallet = Wallet()
-print (wallet.read_from_file('transactions.txt'))
+
 
