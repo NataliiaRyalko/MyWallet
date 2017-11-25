@@ -1,1 +1,0 @@
-{'25-11-17 09:18:27': {'account': 'cash', 'value': Decimal('10.00'), 'category': 'transport'}}

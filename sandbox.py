@@ -1,6 +1,6 @@
 import tkinter as tk
 from wallet_app import *
-from decimal import *
+import json
 
 class App_GUI(tk.Frame):
 
@@ -80,17 +80,16 @@ class App_GUI(tk.Frame):
         self.read_from_file('categories.txt')
 
     def account_callback(self):
-        entered_value = Decimal(self.input_account_value.get()).quantize(Decimal('0.01'), rounding=ROUND_DOWN)
+        entered_value = self.input_account_value.get()
         entered_name = self.input_account_name.get()
         account = Account(entered_name, entered_value)
         wallet.add_account(account)
-        self.save_to_file('accounts.txt', wallet.account_list, 'w')
         self.display_account(wallet.account_list[entered_name])
         self.account_listbox.insert(tk.END, entered_name)
 
     def transaction_callback(self):
 
-        entered_value = Decimal(self.input_transaction_value.get()).quantize(Decimal('0.01'), rounding=ROUND_DOWN)
+        entered_value = self.input_transaction_value.get()
         selected_category = self.category_listbox.get(self.category_listbox.curselection(), last=None)
         selected_account = self.account_listbox.get(self.account_listbox.curselection(), last=None)
         transaction = Transaction(entered_value, selected_account, selected_category)
@@ -101,6 +100,7 @@ class App_GUI(tk.Frame):
         self.display_account(wallet.account_list[selected_account])
         print(wallet.transaction_list, 'this is transaction list')
         self.save_to_file('transactions.txt',wallet.transaction_list, 'w')
+        self.save_to_file('accounts.txt',wallet.account_list, 'w')
 
     def category_callback(self):
         category_name = self.input_category_name.get()
@@ -110,7 +110,8 @@ class App_GUI(tk.Frame):
     def display_transaction(self,transaction):
         self.transaction_display['text'] = ("Category: "+transaction.category + '\n' +
                                             transaction.transaction_name +"\n" +
-                                            "Value: " + str(transaction.transaction_value))
+                                            "Value: " +
+                                             str(transaction.transaction_value))
         self.transaction_display['fg'] = '#42f477'
         self.transaction_display['bg'] = "#000000"
 
@@ -125,6 +126,7 @@ class App_GUI(tk.Frame):
             file.write(str(data)+"\n")
             file.close()
         elif mode == "w":
+            #json.dumps(data,file)
             file.write(str(data))
             file.close()
 

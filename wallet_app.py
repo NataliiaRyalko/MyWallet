@@ -9,7 +9,7 @@ This app helps to control your own finances, your wallet.
 
 from datetime import datetime
 import ast
-
+from decimal import *
 
 class Account(object):
     # var name always is string, var value is number
@@ -39,7 +39,9 @@ class Wallet(object):
         tr_cell['account'] = transaction.transaction_account
 
     def spend(self,account,transaction):
-        return  account-transaction
+        decimal_account = Decimal(account).quantize(Decimal('0.01'), rounding=ROUND_DOWN)
+        decimal_transaction = Decimal(transaction).quantize(Decimal('0.01'), rounding=ROUND_DOWN)
+        return  str(decimal_account-decimal_transaction)
 
     
 
