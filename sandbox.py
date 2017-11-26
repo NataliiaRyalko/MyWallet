@@ -78,6 +78,8 @@ class App_GUI(tk.Frame):
         #window settings
         self.master.title('My wallet')
         self.read_from_file('categories.txt')
+        wallet.transaction_list = self.read_from_file('transactions.json')
+        wallet.account_list = self.read_from_file('accounts.json')
 
     def account_callback(self):
         entered_value = Decimal(self.input_account_value.get()).quantize(Decimal('0.01'), rounding=ROUND_DOWN)
@@ -99,9 +101,10 @@ class App_GUI(tk.Frame):
                                                              wallet.transaction_list[transaction.transaction_name]["value"])
         self.display_account(wallet.account_list[selected_account])
         print(wallet.transaction_list, 'this is transaction list')
-        self.save_to_file('transactions.txt',wallet.transaction_list, 'w')
-        self.save_to_file('accounts.txt',wallet.account_list, 'w')
-
+        self.save_to_file('transactions.json',wallet.transaction_list, 'w')
+        self.save_to_file('accounts.json',wallet.account_list, 'w')
+        print(wallet.account_list)
+        
     def category_callback(self):
         category_name = self.input_category_name.get()
         self.category_listbox.insert(tk.END, category_name)
@@ -123,21 +126,30 @@ class App_GUI(tk.Frame):
     def save_to_file(self,file_name,data,mode):
         file = open(file_name, mode)
         if mode == "a":
-            file.write(str(data)+"\n")
+            file.write(data +"\n")
             file.close()
-        elif mode == "w":
-            #json.dumps(data,file)
-            file.write(str(data))
-            file.close()
+            
+        elif mode == "w":           
+            with open(file_name, mode) as outfile:
+                 json.dump(data, outfile)
 
     def read_from_file(self,file_name):
-        file = open(file_name,"r")
-        for line in file:
+        if file_name.endswith('.txt'):
+            file = open(file_name,"r")
+            for line in file:
                 data = file.readline()[:-1]
                 self.category_listbox.insert(tk.END, data)
-        self.category_listbox.delete(tk.END)
-        file.close()
-
+            self.category_listbox.delete(tk.END)
+            file.close()
+            
+        elif file_name.endswith('.json'):
+            with open(file_name) as data_file:
+                data_loaded = json.load(data_file)
+                if file_name == "accounts.json":
+                    for key in data_loaded:
+                        self.account_listbox.insert(tk.END, key)
+                return data_loaded
+	
 root = tk.Tk()
 app = App_GUI(master=root)
 app.mainloop()

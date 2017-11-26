@@ -71,7 +71,7 @@ def read_from_file(file_name):
         return read_file
 print read_from_file('test.txt')
 
-'''
+
 
 my_dict = {'key' : [1,2,3]}
 
@@ -105,3 +105,11 @@ print (dct)
 # msgBox.setText("Hello World - using PySide version " + PySide.__version__)
 # msgBox.exec_()
 #
+'''
+data = {1:"A"}
+import json
+with open('data.txt', 'w') as outfile:
+    json.dump(data, outfile)
+
+
+
