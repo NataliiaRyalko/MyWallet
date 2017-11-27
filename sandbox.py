@@ -71,6 +71,7 @@ class App_GUI(tk.Frame):
         self.add_category.grid(row=5, column=2)
         #listboxes
         self.account_listbox=tk.Listbox(self, height=5, selectmode='SINGLE',exportselection = 0)
+       # self.account_listbox.bind('<<ListboxSelect>>',self.display_account(wallet.account_list[self.category_listbox.curselection()[0])
         self.account_listbox.grid(row = 7, column = 1)
 
         self.category_listbox = tk.Listbox(self, height=5, selectmode='SINGLE',)
@@ -80,7 +81,7 @@ class App_GUI(tk.Frame):
         self.read_from_file('categories.txt')
         wallet.transaction_list = self.read_from_file('transactions.json')
         wallet.account_list = self.read_from_file('accounts.json')
-        self.display_account(wallet.account_list["cash"])
+        
         
     def account_callback(self):
         entered_value = Decimal(self.input_account_value.get()).quantize(Decimal('0.01'), rounding=ROUND_DOWN)
