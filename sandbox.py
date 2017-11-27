@@ -80,7 +80,8 @@ class App_GUI(tk.Frame):
         self.read_from_file('categories.txt')
         wallet.transaction_list = self.read_from_file('transactions.json')
         wallet.account_list = self.read_from_file('accounts.json')
-
+        self.display_account(wallet.account_list["cash"])
+        
     def account_callback(self):
         entered_value = Decimal(self.input_account_value.get()).quantize(Decimal('0.01'), rounding=ROUND_DOWN)
         entered_name = self.input_account_name.get()
