@@ -121,7 +121,6 @@ def callback_event(e):
 	print('It Works')
 
 lb.bind('<<ListboxSelect>>', callback_event)
-
 root.mainloop()
 
 
