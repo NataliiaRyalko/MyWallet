@@ -69,17 +69,26 @@ class App_GUI(tk.Frame):
 
         self.add_category = tk.Button(self, text="Add category", command=self.category_callback)
         self.add_category.grid(row=5, column=2)
+        
+        def callback_event(e):
+         self.display_account(wallet.account_list[self.account_listbox.get(self.account_listbox.curselection(), last=None)])
+    
+        
         #listboxes
         self.account_listbox=tk.Listbox(self, height=5, selectmode='SINGLE',exportselection = 0)
         self.account_listbox.grid(row = 7, column = 1)
-        self.category_listbox = tk.Listbox(self, height=5, selectmode='SINGLE',)
+        self.account_listbox.bind('<<ListboxSelect>>', callback_event)
+        
+        self.category_listbox = tk.Listbox(self, height=5, selectmode='SINGLE')
         self.category_listbox.grid(row=7, column=2)
-        #window settings
+        # initialisation
         self.master.title('My wallet')
         self.read_from_file('categories.txt')
         wallet.transaction_list = self.read_from_file('transactions.json')
         wallet.account_list = self.read_from_file('accounts.json')
-        self.display_account(wallet.account_list[self.account_listbox.get(0)])
+        
+        
+    
         
     def account_callback(self):
         entered_value = Decimal(self.input_account_value.get()).quantize(Decimal('0.01'), rounding=ROUND_DOWN)

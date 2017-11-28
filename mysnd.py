@@ -105,11 +105,23 @@ print (dct)
 # msgBox.setText("Hello World - using PySide version " + PySide.__version__)
 # msgBox.exec_()
 #
-'''
+
 data = {1:"A"}
 import json
 with open('data.txt', 'w') as outfile:
     json.dump(data, outfile)
+'''
+import tkinter as tk
+root = tk.Tk()
+lb = tk.Listbox(root, selectmode = 'SINGLE') 
+lb.grid(row = 1, column = 1)
+lb.insert(tk.END, "test")
 
+def callback_event(e):
+	print('Hello')
+
+lb.bind('<<ListboxSelect>>', callback_event)
+
+root.mainloop()
 
 
