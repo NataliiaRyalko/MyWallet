@@ -118,7 +118,7 @@ lb.grid(row = 1, column = 1)
 lb.insert(tk.END, "test")
 
 def callback_event(e):
-	print('Hello')
+	print('It Works')
 
 lb.bind('<<ListboxSelect>>', callback_event)
 
