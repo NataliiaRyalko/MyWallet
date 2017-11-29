@@ -67,10 +67,10 @@ class App_GUI(tk.Frame):
         self.add_category = tk.Button(self, text="Add category", command=self.category_callback)
         self.add_category.grid(row=5, column=2)
         # del buttons
-        self.del_account_btn = tk.Button(self, text="del Account", command=self.del_func)
+        self.del_account_btn = tk.Button(self, text="Del Account", command=self.del_func)
         self.del_account_btn.grid(row=8, column=1)
 
-        self.del_category_btn = tk.Button(self, text="del Category", command=self.del_func)
+        self.del_category_btn = tk.Button(self, text="Del Category", command=self.del_func)
         self.del_category_btn.grid(row=8, column=2)
         # quit button
         self.quit = tk.Button(self, text="QUIT", fg="red",command=self.master.destroy)
@@ -158,7 +158,7 @@ class App_GUI(tk.Frame):
                 
         return data_loaded
     
-    def del_func(self,item,from_list,from_file):
+    def del_func(self):
         ...
             
 root = tk.Tk()
