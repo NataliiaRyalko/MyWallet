@@ -10,9 +10,9 @@ class App_GUI(tk.Frame):
         self.create_widgets()
 
     def create_widgets(self):
-        #input fields
+        # input fields
         self.input_transaction_value = tk.Entry(self)
-        self.input_transaction_value.grid(row = 9, column = 1)
+        self.input_transaction_value.grid(row = 10, column = 1)
         self.input_transaction_value.insert(0, "10")
 
         self.input_account_value = tk.Entry(self)
@@ -37,13 +37,13 @@ class App_GUI(tk.Frame):
         self.input_category_name_label.grid(row=3, column=2)
 
         self.input_transaction_value_label = tk.Label(self, text="Enter Transaction value:")
-        self.input_transaction_value_label.grid(row=8, column=1)
+        self.input_transaction_value_label.grid(row=9, column=1)
 
-        self.input_transaction_value_label = tk.Label(self, text="Select account:")
-        self.input_transaction_value_label.grid(row=6, column=1)
+        self.input_account_value_label = tk.Label(self, text="Select account:")
+        self.input_account_value_label.grid(row=6, column=1)
 
-        self.input_transaction_value_label = tk.Label(self, text="Select category:")
-        self.input_transaction_value_label.grid(row=6, column=2)
+        self.input_category_value_label = tk.Label(self, text="Select category:")
+        self.input_category_value_label.grid(row=6, column=2)
 
         self.account_display_label = tk.Label(self, text="Current account value:")
         self.account_display_label.grid(row=1, column=2)
@@ -52,29 +52,36 @@ class App_GUI(tk.Frame):
         self.account_display.grid(row=2, column=2)
 
         self.transaction_label_display = tk.Label(self, text="Last Transaction:")
-        self.transaction_label_display.grid(row=8, column=2)
+        self.transaction_label_display.grid(row=9, column=2)
 
         self.transaction_display = tk.Label(self)
-        self.transaction_display.grid(row=9, column=2)
+        self.transaction_display.grid(row=10, column=2)
 
-        #buttons
+        # add buttons
         self.add_account_btn = tk.Button(self, text="Add Account", command=self.account_callback)
         self.add_account_btn.grid(row=5, column=1)
 
         self.add_transaction_btn = tk.Button(self, text="Add Transaction", command=self.transaction_callback)
-        self.add_transaction_btn.grid(row=10, column=1)
-
-        self.quit = tk.Button(self, text="QUIT", fg="red",command=self.master.destroy)
-        self.quit.grid(row=11, column=1)
-
+        self.add_transaction_btn.grid(row=11, column=1)
+        
         self.add_category = tk.Button(self, text="Add category", command=self.category_callback)
         self.add_category.grid(row=5, column=2)
+        # del buttons
+        self.del_account_btn = tk.Button(self, text="del Account", command=self.del_func)
+        self.del_account_btn.grid(row=8, column=1)
+
+        self.del_category_btn = tk.Button(self, text="del Category", command=self.del_func)
+        self.del_category_btn.grid(row=8, column=2)
+        # quit button
+        self.quit = tk.Button(self, text="QUIT", fg="red",command=self.master.destroy)
+        self.quit.grid(row=12, column=1)
+
         
         def callback_event(e):
          self.display_account(wallet.account_list[self.account_listbox.get(self.account_listbox.curselection(), last=None)])
     
         
-        #listboxes
+        # listboxes
         self.account_listbox=tk.Listbox(self, height=5, selectmode='SINGLE',exportselection = 0)
         self.account_listbox.grid(row = 7, column = 1)
         self.account_listbox.bind('<<ListboxSelect>>', callback_event)
@@ -150,6 +157,10 @@ class App_GUI(tk.Frame):
                 self.category_listbox.insert(tk.END, key)
                 
         return data_loaded
+    
+    def del_func(self,item,from_list,from_file):
+        ...
+            
 root = tk.Tk()
 app = App_GUI(master=root)
 app.mainloop()
