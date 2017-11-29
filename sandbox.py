@@ -143,11 +143,9 @@ class App_GUI(tk.Frame):
                  json.dump(data, outfile)
 
     def read_from_file(self,file_name):
-        if file_name.endswith('.txt'):
-            file = open(file_name,"r")
-            for line in file:
-                data = file.readline()[:-1]
-                self.category_listbox.insert(tk.END, data)
+        if file_name.endswith('.txt'):          
+            for line in open(file_name,"r"):
+                self.category_listbox.insert(tk.END, line[:-1])
             self.category_listbox.delete(tk.END)
             file.close()
             
