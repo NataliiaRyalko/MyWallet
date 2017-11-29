@@ -109,8 +109,7 @@ print (dct)
 data = {1:"A"}
 import json
 with open('data.txt', 'w') as outfile:
-    json.dump(data, outfile)
-'''
+
 import tkinter as tk
 root = tk.Tk()
 lb = tk.Listbox(root, selectmode = 'SINGLE') 
@@ -122,5 +121,9 @@ def callback_event(e):
 
 lb.bind('<<ListboxSelect>>', callback_event)
 root.mainloop()
-
-
+'''
+import json
+d = {1:None,2:None}
+with open('test.txt',"w") as outfile:
+	json.dump(d,outfile)
+print d

@@ -83,7 +83,7 @@ class App_GUI(tk.Frame):
         self.category_listbox.grid(row=7, column=2)
         # initialisation
         self.master.title('My wallet')
-        self.read_from_file('categories.txt')
+        wallet.category_list = self.read_from_file('categories.json')
         wallet.transaction_list = self.read_from_file('transactions.json')
         wallet.account_list = self.read_from_file('accounts.json')
         
@@ -110,14 +110,15 @@ class App_GUI(tk.Frame):
                                                              wallet.transaction_list[transaction.transaction_name]["value"])
         self.display_account(wallet.account_list[selected_account])
         print(wallet.transaction_list, 'this is transaction list')
-        self.save_to_file('transactions.json',wallet.transaction_list, 'w')
-        self.save_to_file('accounts.json',wallet.account_list, 'w')
+        self.save_to_file('transactions.json',wallet.transaction_list)
+        self.save_to_file('accounts.json',wallet.account_list)
         print(wallet.account_list)
         
     def category_callback(self):
         category_name = self.input_category_name.get()
+        wallet.category_list[category_name] = None
         self.category_listbox.insert(tk.END, category_name)
-        self.save_to_file('categories.txt',category_name, "a")
+        self.save_to_file('categories.json',wallet.category_list)
 
     def display_transaction(self,transaction):
         self.transaction_display['text'] = ("Category: "+transaction.category + '\n' +
@@ -132,31 +133,22 @@ class App_GUI(tk.Frame):
         self.account_display['fg'] = '#42f477'
         self.account_display['bg'] = "#000000"
 
-    def save_to_file(self,file_name,data,mode):
-        file = open(file_name, mode)
-        if mode == "a":
-            file.write(data +"\n")
-            file.close()
-            
-        elif mode == "w":           
-            with open(file_name, mode) as outfile:
-                 json.dump(data, outfile)
+    def save_to_file(self,file_name,data):       
+        with open(file_name, "w") as outfile:
+            json.dump(data, outfile)
 
     def read_from_file(self,file_name):
-        if file_name.endswith('.txt'):          
-            for line in open(file_name,"r"):
-                self.category_listbox.insert(tk.END, line[:-1])
-            self.category_listbox.delete(tk.END)
-            file.close()
-            
-        elif file_name.endswith('.json'):
-            with open(file_name) as data_file:
-                data_loaded = json.load(data_file)
-                if file_name == "accounts.json":
-                    for key in data_loaded:
-                        self.account_listbox.insert(tk.END, key)
-                return data_loaded
-	
+        with open(file_name) as data_file:
+            data_loaded = json.load(data_file)
+        if file_name == "accounts.json":
+            for key in data_loaded:
+                self.account_listbox.insert(tk.END, key)           
+
+        elif file_name == "categories.json":
+            for key in data_loaded:
+                self.category_listbox.insert(tk.END, key)
+                
+        return data_loaded
 root = tk.Tk()
 app = App_GUI(master=root)
 app.mainloop()

@@ -28,6 +28,7 @@ class Transaction(object):
 class Wallet(object):
     transaction_list = {}
     account_list = {}
+    category_list = {}
 
     def add_account(self,account):
         self.account_list[account.account_name] = str(account.account_value)
