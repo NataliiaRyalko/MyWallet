@@ -140,6 +140,7 @@ class App_GUI(tk.Frame):
     def read_from_file(self,file_name):
         with open(file_name) as data_file:
             data_loaded = json.load(data_file)
+            
         if file_name == "accounts.json":
             for key in data_loaded:
                 self.account_listbox.insert(tk.END, key)           
