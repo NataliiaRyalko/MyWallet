@@ -67,10 +67,10 @@ class App_GUI(tk.Frame):
         self.add_category = tk.Button(self, text="Add category", command=self.category_callback)
         self.add_category.grid(row=5, column=2)
         # del buttons
-        self.del_account_btn = tk.Button(self, text="Del Account", command=self.del_ac)
+        self.del_account_btn = tk.Button(self, text="Del Account")#, command=self.del_ac)
         self.del_account_btn.grid(row=8, column=1)
 
-        self.del_category_btn = tk.Button(self, text="Del Category", command=self.del_cat)
+        self.del_category_btn = tk.Button(self, text="Del Category")#, command=self.del_cat)
         self.del_category_btn.grid(row=8, column=2)
         # quit button
         self.quit = tk.Button(self, text="QUIT", fg="red",command=self.master.destroy)
@@ -134,7 +134,7 @@ class App_GUI(tk.Frame):
                                              str(transaction.transaction_value)+"UAH")
         self.transaction_display['fg'] = '#42f477'
         self.transaction_display['bg'] = "#000000"
-    
+    '''
     def del_ac(self):
         del(self.account_list[self.account_listbox.get(self.account_listbox.cursorlection()[0])]
         self.save_to_file('accounts.json',wallet.account_list)
@@ -144,7 +144,7 @@ class App_GUI(tk.Frame):
         del(self.category_list[self.catogory_listbox.get(self.category_listbox.cursorlection()[0])]
         self.save_to_file('categories.json',wallet.category_list)
         self.category_listbox.delete(self.category_listbox.cursorlection()[0])
-    
+    '''
     def display_account(self,account):
         self.account_display['text'] = str(account) + " UAH"
         self.account_display['fg'] = '#42f477'
@@ -167,9 +167,7 @@ class App_GUI(tk.Frame):
                 self.category_listbox.insert(tk.END, key)
                 
         return data_loaded
-    
-    
-                
+                       
 root = tk.Tk()
 app = App_GUI(master=root)
 app.mainloop()
