@@ -67,10 +67,10 @@ class App_GUI(tk.Frame):
         self.add_category = tk.Button(self, text="Add category", command=self.category_callback)
         self.add_category.grid(row=5, column=2)
         # del buttons
-        self.del_account_btn = tk.Button(self, text="Del Account")#, command=self.del_ac)
+        self.del_account_btn = tk.Button(self, text="Del Account", command=self.del_ac)
         self.del_account_btn.grid(row=8, column=1)
 
-        self.del_category_btn = tk.Button(self, text="Del Category")#, command=self.del_cat)
+        self.del_category_btn = tk.Button(self, text="Del Category", command=self.del_cat)
         self.del_category_btn.grid(row=8, column=2)
         # quit button
         self.quit = tk.Button(self, text="QUIT", fg="red",command=self.master.destroy)
@@ -78,14 +78,14 @@ class App_GUI(tk.Frame):
 
         
         def callback_event(e):
-         self.display_account(wallet.account_list[self.account_listbox.get(self.account_listbox.curselection(), last=None)])
-    
-        
+            self.display_account(wallet.account_list[self.account_listbox.get(self.account_listbox.curselection(), last=None)])
+
+
         # listboxes
         self.account_listbox=tk.Listbox(self, height=5, selectmode='SINGLE',exportselection = 0)
         self.account_listbox.grid(row = 7, column = 1)
         self.account_listbox.bind('<<ListboxSelect>>', callback_event)
-        
+
         self.category_listbox = tk.Listbox(self, height=5, selectmode='SINGLE')
         self.category_listbox.grid(row=7, column=2)
         # initialisation
@@ -134,17 +134,17 @@ class App_GUI(tk.Frame):
                                              str(transaction.transaction_value)+"UAH")
         self.transaction_display['fg'] = '#42f477'
         self.transaction_display['bg'] = "#000000"
-    '''
+
     def del_ac(self):
-        del(self.account_list[self.account_listbox.get(self.account_listbox.cursorlection()[0])]
+        del(wallet.account_list[self.account_listbox.get(self.account_listbox.curselection(),last=None)])
         self.save_to_file('accounts.json',wallet.account_list)
-        self.account_listbox.delete(self.account_listbox.cursorlection(),last=None)
+        self.account_listbox.delete(self.account_listbox.curselection(),last=None)
     
     def del_cat(self):
-        del(self.category_list[self.catogory_listbox.get(self.category_listbox.cursorlection()[0])]
+        del(wallet.category_list[self.category_listbox.get(self.category_listbox.curselection(),last=None)])
         self.save_to_file('categories.json',wallet.category_list)
-        self.category_listbox.delete(self.category_listbox.cursorlection()[0])
-    '''
+        self.category_listbox.delete(self.category_listbox.curselection()[0])
+
     def display_account(self,account):
         self.account_display['text'] = str(account) + " UAH"
         self.account_display['fg'] = '#42f477'
