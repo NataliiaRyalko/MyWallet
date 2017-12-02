@@ -170,9 +170,10 @@ class App_GUI(tk.Frame):
                 
         return data_loaded
     
-    def transaction_view(self):     
-        self.transaction_textbox['text'] = str([x for x in wallet.transaction_list.values()])
-                            
+    def transaction_view(self): 
+        for key,value in wallet.transaction_list:  
+                self.transaction_textbox['text'] = str([key,value])  + '\n' 
+                self.transaction_textbox['text'] = str([key,value])  + '\n'           
 root = tk.Tk()
 app = App_GUI(master=root)
 app.mainloop()
