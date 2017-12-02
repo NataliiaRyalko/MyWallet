@@ -56,7 +56,10 @@ class App_GUI(tk.Frame):
 
         self.transaction_display = tk.Label(self)
         self.transaction_display.grid(row=10, column=2)
-
+        
+        self.transaction_textbox = tk.Label(self,text = 'test')
+        self.transaction_textbox.grid(row=1, column=3)
+        
         # add buttons
         self.add_account_btn = tk.Button(self, text="Add Account", command=self.account_callback)
         self.add_account_btn.grid(row=5, column=1)
@@ -75,7 +78,9 @@ class App_GUI(tk.Frame):
         # quit button
         self.quit = tk.Button(self, text="QUIT", fg="red",command=self.master.destroy)
         self.quit.grid(row=12, column=1)
-
+        
+        self.transaction_view_btn = tk.Button(self, text = "View all transactions", command = self.transaction_view)
+        self.transaction_view_btn.grid(row=11, column=2)
         
         def callback_event(e):
             self.display_account(wallet.account_list[self.account_listbox.get(self.account_listbox.curselection(), last=None)])
@@ -93,9 +98,6 @@ class App_GUI(tk.Frame):
         wallet.category_list = self.read_from_file('categories.json')
         wallet.transaction_list = self.read_from_file('transactions.json')
         wallet.account_list = self.read_from_file('accounts.json')
-        
-        
-    
         
     def account_callback(self):
         entered_value = Decimal(self.input_account_value.get()).quantize(Decimal('0.01'), rounding=ROUND_DOWN)
@@ -167,7 +169,10 @@ class App_GUI(tk.Frame):
                 self.category_listbox.insert(tk.END, key)
                 
         return data_loaded
-                       
+    
+    def transaction_view(self):     
+        self.transaction_textbox['text'] = str([x for x in wallet.transaction_list.values()])
+                            
 root = tk.Tk()
 app = App_GUI(master=root)
 app.mainloop()
