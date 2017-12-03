@@ -57,7 +57,7 @@ class App_GUI(tk.Frame):
         self.transaction_display = tk.Label(self)
         self.transaction_display.grid(row=10, column=2)
         
-        self.transaction_textbox = tk.Label(self,text = 'test')
+        self.transaction_textbox = tk.Label(self)
         self.transaction_textbox.grid(row=1, column=3)
         
         # add buttons
@@ -171,9 +171,12 @@ class App_GUI(tk.Frame):
         return data_loaded
     
     def transaction_view(self): 
-        for key,value in wallet.transaction_list:  
-                self.transaction_textbox['text'] = str([key,value])  + '\n' 
-                self.transaction_textbox['text'] = str([key,value])  + '\n'           
+        for key,value in wallet.transaction_list.items():
+
+                self.transaction_textbox['text'] += (key+":"+"\n")
+                for k,v in value.items():
+                    self.transaction_textbox['text'] += (" "+k+":"+v+"\n")
+
 root = tk.Tk()
 app = App_GUI(master=root)
 app.mainloop()
