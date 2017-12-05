@@ -130,10 +130,7 @@ class App_GUI(tk.Frame):
         self.save_to_file('categories.json',wallet.category_list)
 
     def display_transaction(self,transaction):
-        self.transaction_display['text'] = ("Category: "+transaction.category + '\n' +
-                                            transaction.transaction_name +"\n" +
-                                            "Value: " +
-                                             str(transaction.transaction_value)+"UAH")
+        self.transaction_display['text'] = "%s\n Category: %s\n Value: %s UAH" % (transaction.transaction_name,transaction.category, transaction.transaction_value)
         self.transaction_display['fg'] = '#42f477'
         self.transaction_display['bg'] = "#000000"
 
@@ -148,7 +145,7 @@ class App_GUI(tk.Frame):
         self.category_listbox.delete(self.category_listbox.curselection()[0])
 
     def display_account(self,account):
-        self.account_display['text'] = str(account) + " UAH"
+        self.account_display['text'] = "%s UAH" % account 
         self.account_display['fg'] = '#42f477'
         self.account_display['bg'] = "#000000"
 
@@ -172,10 +169,9 @@ class App_GUI(tk.Frame):
     
     def transaction_view(self): 
         for key,value in wallet.transaction_list.items():
-
-                self.transaction_textbox['text'] += (key+":"+"\n")
-                for k,v in value.items():
-                    self.transaction_textbox['text'] += (" "+k+":"+v+"\n")
+            self.transaction_textbox['text'] += "%s:\n" % key
+            for k,v in value.items():
+                self.transaction_textbox['text'] += " %s:%s\n" % (k,v)
 
 root = tk.Tk()
 app = App_GUI(master=root)
