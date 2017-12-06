@@ -173,9 +173,10 @@ class App_GUI(tk.Frame):
         self.transaction_textbox = tk.Text(self.top)
         self.transaction_textbox.grid(row=1, column=1)
         for key,value in wallet.transaction_list.items():
-            self.transaction_textbox.insert(tk.END,("%s:\n" % key)
+            self.transaction_textbox.insert(tk.END,key)
             for k,v in value.items():
-                self.transaction_textbox.insert(tk.END,(" %s:%s\n")) % (k,v)
+                text_row = (" %s:%s\n") % (k,v)
+                self.transaction_textbox.insert(tk.END,text_row)
         self.back_button = self.Button(self.top, text = "Back",command  = top.destroy)
         self.back_button.grid(row = 2,column = 1)
             
