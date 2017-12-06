@@ -10,6 +10,7 @@ class App_GUI(tk.Frame):
         self.create_widgets()
 
     def create_widgets(self):
+        
         # input fields
         self.input_transaction_value = tk.Entry(self)
         self.input_transaction_value.grid(row = 10, column = 1)
@@ -56,9 +57,6 @@ class App_GUI(tk.Frame):
 
         self.transaction_display = tk.Label(self)
         self.transaction_display.grid(row=10, column=2)
-        
-        self.transaction_textbox = tk.Label(self)
-        self.transaction_textbox.grid(row=1, column=3)
         
         # add buttons
         self.add_account_btn = tk.Button(self, text="Add Account", command=self.account_callback)
@@ -167,12 +165,20 @@ class App_GUI(tk.Frame):
                 
         return data_loaded
     
-    def transaction_view(self): 
+    def transaction_view(self):
+        self.top  = tk.Toplevel(self)
+        self.top.title("test")
+        self.scroll = tk.Scrollbar(self.top)
+        self.scroll.grid(row = 1, column = 2)
+        self.transaction_textbox = tk.Text(self.top)
+        self.transaction_textbox.grid(row=1, column=1)
         for key,value in wallet.transaction_list.items():
-            self.transaction_textbox['text'] += "%s:\n" % key
+            self.transaction_textbox.insert(tk.END,("%s:\n" % key)
             for k,v in value.items():
-                self.transaction_textbox['text'] += " %s:%s\n" % (k,v)
-
+                self.transaction_textbox.insert(tk.END,(" %s:%s\n")) % (k,v)
+        self.back_button = self.Button(self.top, text = "Back",command  = top.destroy)
+        self.back_button.grid(row = 2,column = 1)
+            
 root = tk.Tk()
 app = App_GUI(master=root)
 app.mainloop()
