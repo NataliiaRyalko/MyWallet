@@ -169,16 +169,17 @@ class App_GUI(tk.Frame):
         self.top  = tk.Toplevel(self)
         self.top.title("test")
         self.scroll = tk.Scrollbar(self.top)
-        self.scroll.grid(row = 1, column = 2)
-        self.transaction_textbox = tk.Text(self.top)
+        self.scroll.grid(row = 1, column = 2, sticky='NSW')
+        self.transaction_textbox = tk.Text(self.top, yscrollcommand = self.scroll.set)
         self.transaction_textbox.grid(row=1, column=1)
         for key,value in wallet.transaction_list.items():
-            self.transaction_textbox.insert(tk.END,key)
+            self.transaction_textbox.insert(tk.END,"\n"+key+"\n")
             for k,v in value.items():
                 text_row = (" %s:%s\n") % (k,v)
                 self.transaction_textbox.insert(tk.END,text_row)
-        self.back_button = self.Button(self.top, text = "Back",command  = top.destroy)
+        self.back_button = tk.Button(self.top, text = "Back",command  = self.top.destroy)
         self.back_button.grid(row = 2,column = 1)
+        self.scroll.config(command=self.transaction_textbox.yview)
             
 root = tk.Tk()
 app = App_GUI(master=root)
