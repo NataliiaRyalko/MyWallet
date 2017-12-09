@@ -126,4 +126,4 @@ import json
 d = {1:None,2:None}
 with open('test.txt',"w") as outfile:
 	json.dump(d,outfile)
-print d
+print (d)
