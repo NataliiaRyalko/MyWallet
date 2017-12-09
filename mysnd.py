@@ -1,4 +1,20 @@
-#
+#L = map(lambda x:2**x,range(7))
+x=5
+L =[]
+for i in range(7):
+	L.append(2**i)
+	
+if 2**x in L:
+		print('at index',L.index(2**x))
+
+'''
+for i in range(len(L)):
+	if 2**x == L[i]:
+		print('at index',i)
+		break
+else:
+	print ("not  ok")
+
 # import datetime
 # from tkinter import *
 # date_value = datetime.datetime.now().strftime("%d-%m-%y")
@@ -49,7 +65,7 @@
 # btn = Button(root, text = 'get',command = callback)
 # btn.pack()
 # root.mainloop()
-'''
+
 test  = {}
 test['one'] = 'one'
 
@@ -121,9 +137,29 @@ def callback_event(e):
 
 lb.bind('<<ListboxSelect>>', callback_event)
 root.mainloop()
-'''
+
 import json
 d = {1:None,2:None}
 with open('test.txt',"w") as outfile:
 	json.dump(d,outfile)
+<<<<<<< HEAD
 print (d)
+=======
+print d
+
+from tkinter import *
+
+master = Tk()
+
+scrollbar = Scrollbar(master)
+scrollbar.pack(side=RIGHT, fill=Y)
+
+listbox = Listbox(master, yscrollcommand=scrollbar.set)
+for i in range(1000):
+    listbox.insert(END, str(i))
+listbox.pack(side=LEFT, fill=BOTH)
+
+scrollbar.config(command=listbox.yview)
+
+mainloop()
+'''

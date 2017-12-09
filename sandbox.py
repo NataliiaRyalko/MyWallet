@@ -10,6 +10,7 @@ class App_GUI(tk.Frame):
         self.create_widgets()
 
     def create_widgets(self):
+        
         # input fields
         self.input_transaction_value = tk.Entry(self)
         self.input_transaction_value.grid(row = 10, column = 1)
@@ -56,9 +57,6 @@ class App_GUI(tk.Frame):
 
         self.transaction_display = tk.Label(self)
         self.transaction_display.grid(row=10, column=2)
-        
-        self.transaction_textbox = tk.Label(self)
-        self.transaction_textbox.grid(row=1, column=3)
         
         # add buttons
         self.add_account_btn = tk.Button(self, text="Add Account", command=self.account_callback)
@@ -130,10 +128,7 @@ class App_GUI(tk.Frame):
         self.save_to_file('categories.json',wallet.category_list)
 
     def display_transaction(self,transaction):
-        self.transaction_display['text'] = ("Category: "+transaction.category + '\n' +
-                                            transaction.transaction_name +"\n" +
-                                            "Value: " +
-                                             str(transaction.transaction_value)+"UAH")
+        self.transaction_display['text'] = "%s\n Category: %s\n Value: %s UAH" % (transaction.transaction_name,transaction.category, transaction.transaction_value)
         self.transaction_display['fg'] = '#42f477'
         self.transaction_display['bg'] = "#000000"
 
@@ -148,7 +143,7 @@ class App_GUI(tk.Frame):
         self.category_listbox.delete(self.category_listbox.curselection()[0])
 
     def display_account(self,account):
-        self.account_display['text'] = str(account) + " UAH"
+        self.account_display['text'] = "%s UAH" % account 
         self.account_display['fg'] = '#42f477'
         self.account_display['bg'] = "#000000"
 
@@ -170,13 +165,22 @@ class App_GUI(tk.Frame):
                 
         return data_loaded
     
-    def transaction_view(self): 
+    def transaction_view(self):
+        self.top  = tk.Toplevel(self)
+        self.top.title("test")
+        self.scroll = tk.Scrollbar(self.top)
+        self.scroll.grid(row = 1, column = 2, sticky='NSW')
+        self.transaction_textbox = tk.Text(self.top, yscrollcommand = self.scroll.set)
+        self.transaction_textbox.grid(row=1, column=1)
         for key,value in wallet.transaction_list.items():
-
-                self.transaction_textbox['text'] += (key+":"+"\n")
-                for k,v in value.items():
-                    self.transaction_textbox['text'] += (" "+k+":"+v+"\n")
-
+            self.transaction_textbox.insert(tk.END,"\n"+key+"\n")
+            for k,v in value.items():
+                text_row = (" %s:%s\n") % (k,v)
+                self.transaction_textbox.insert(tk.END,text_row)
+        self.back_button = tk.Button(self.top, text = "Back",command  = self.top.destroy)
+        self.back_button.grid(row = 2,column = 1)
+        self.scroll.config(command=self.transaction_textbox.yview)
+            
 root = tk.Tk()
 app = App_GUI(master=root)
 app.mainloop()
