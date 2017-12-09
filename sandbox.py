@@ -128,7 +128,10 @@ class App_GUI(tk.Frame):
         self.save_to_file('categories.json',wallet.category_list)
 
     def display_transaction(self,transaction):
-        self.transaction_display['text'] = "%s\n Category: %s\n Value: %s UAH" % (transaction.transaction_name,transaction.category, transaction.transaction_value)
+        self.transaction_display['text'] = "%s:" % transaction.transaction_name
+        l = [("\n%s:%s" % (x, y)) for x, y in wallet.transaction_list[transaction.transaction_name].items()]
+        for item in l:
+            self.transaction_display['text'] += "%s" % (item)
         self.transaction_display['fg'] = '#42f477'
         self.transaction_display['bg'] = "#000000"
 
@@ -163,7 +166,7 @@ class App_GUI(tk.Frame):
             for key in data_loaded:
                 self.category_listbox.insert(tk.END, key)
                 
-        return data_loaded
+        return collections.OrderedDict(data_loaded)
     
     def transaction_view(self):
         self.top  = tk.Toplevel(self)
