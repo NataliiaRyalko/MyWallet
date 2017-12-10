@@ -1,7 +1,6 @@
 import tkinter as tk
 import tkinter.ttk as ttk
 from wallet_app import *
-from logic_module import Logic
 import json
 
 
