@@ -84,16 +84,12 @@ class App_GUI(tk.Frame):
         self.transaction_view_btn = ttk.Button(self, text="View all transactions", command=self.transaction_view)
         self.transaction_view_btn.grid(row=11, column=2)
 
-        def callback_event(e):
-            self.display_account(
-                wallet.account_list[self.account_listbox.get(self.account_listbox.curselection(), last=None)])
-
         # listboxes
         self.account_listbox = tk.Listbox(self, height=5, selectmode='SINGLE', exportselection=0)
         self.account_listbox.grid(row=7, column=1)
         self.account_listbox.select_set(first=0)
 
-        self.account_listbox.bind('<<ListboxSelect>>', callback_event)
+
 
         self.category_listbox = tk.Listbox(self, height=5, selectmode='SINGLE')
         self.category_listbox.grid(row=7, column=2)
@@ -106,6 +102,14 @@ class App_GUI(tk.Frame):
 
         self.account_listbox.select_set(0)
         self.category_listbox.selection_set(0)
+
+        def callback_event(e):
+            self.display_account(
+                wallet.account_list[self.account_listbox.get(self.account_listbox.curselection(), last=None)])
+
+        callback_event(e=None)
+        self.display_transaction((sorted(wallet.transaction_list.keys(), reverse=True))[0])
+        self.account_listbox.bind('<<ListboxSelect>>', callback_event)
 
     def account_callback(self):
         entered_value = Decimal(self.input_account_value.get()).quantize(Decimal('0.01'), rounding=ROUND_DOWN)
@@ -148,7 +152,7 @@ class App_GUI(tk.Frame):
         selected_account = self.account_listbox.get(self.account_listbox.curselection(), last=None)
         transaction = Transaction(entered_value, selected_account, selected_category)
         wallet.add_transaction(transaction)
-        self.display_transaction(transaction)
+        self.display_transaction((sorted(wallet.transaction_list.keys(), reverse=True))[0])
         wallet.account_list[selected_account] = wallet.spend(wallet.account_list[selected_account],
                                                              wallet.transaction_list[
                                                                  transaction.transaction_name]["value"])
@@ -165,8 +169,8 @@ class App_GUI(tk.Frame):
         self.save_to_file('categories.json', wallet.category_list)
 
     def display_transaction(self, transaction):
-        self.transaction_display['text'] = "%s:" % transaction.transaction_name
-        for k, v in wallet.transaction_list[transaction.transaction_name].items():
+        self.transaction_display['text'] = "%s:" % transaction
+        for k, v in wallet.transaction_list[transaction].items():
             self.transaction_display['text'] += "\n%s:%s" % (k, v)
         self.transaction_display['fg'] = '#42f477'
         self.transaction_display['bg'] = "#000000"
@@ -206,13 +210,14 @@ class App_GUI(tk.Frame):
 
     def transaction_view(self):
         self.top = tk.Toplevel(self)
-        self.top.title("view all transactions")
+        # self.top.geometry('500x550')
+        self.top.title("View all transactions")
         self.scroll = ttk.Scrollbar(self.top)
         self.scroll.grid(row=1, column=2, sticky='NSW')
-        self.transaction_textbox = tk.Text(self.top,font = "Arial", yscrollcommand=self.scroll.set)
+        self.transaction_textbox = tk.Text(self.top,font = "Arial", width ="30", yscrollcommand=self.scroll.set)
         self.transaction_textbox.grid(row=1, column=1)
         for key, value in sorted(wallet.transaction_list.items(),reverse=True):
-            self.transaction_textbox.insert(tk.END, "\n" + key + "\n")
+            self.transaction_textbox.insert(tk.END, "\n" + key + ":\n")
             for k, v in value.items():
                 text_row = (" %s:%s\n") % (k, v)
                 self.transaction_textbox.insert(tk.END, text_row)
