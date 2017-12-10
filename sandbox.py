@@ -1,4 +1,5 @@
 import tkinter as tk
+import tkinter.ttk as ttk
 from wallet_app import *
 import json
 
@@ -13,72 +14,74 @@ class App_GUI(tk.Frame):
     def create_widgets(self):
 
         # input fields
-        self.input_transaction_value = tk.Entry(self)
+        self.input_transaction_value = ttk.Entry(self)
         self.input_transaction_value.grid(row=10, column=1)
         self.input_transaction_value.insert(0, "10")
 
-        self.input_account_value = tk.Entry(self)
+        self.input_account_value = ttk.Entry(self)
         self.input_account_value.grid(row=4, column=1)
         self.input_account_value.insert(0, "100")
 
-        self.input_account_name = tk.Entry(self)
+        self.input_account_name = ttk.Entry(self)
         self.input_account_name.grid(row=2, column=1)
         self.input_account_name.insert(0, "cash")
 
-        self.input_category_name = tk.Entry(self)
+        self.input_category_name = ttk.Entry(self)
         self.input_category_name.grid(row=4, column=2)
         self.input_category_name.insert(0, "transport")
         # lebels
-        self.input_account_name_label = tk.Label(self, text="Enter Account name:")
+        self.input_account_name_label = ttk.Label(self, text="Enter Account name:")
         self.input_account_name_label.grid(row=1, column=1)
 
-        self.input_account_value_label = tk.Label(self, text="Enter Account value:")
+        self.input_account_value_label = ttk.Label(self, text="Enter Account value:")
         self.input_account_value_label.grid(row=3, column=1)
 
-        self.input_category_name_label = tk.Label(self, text="Enter Category name:")
+        self.input_category_name_label = ttk.Label(self, text="Enter Category name:")
         self.input_category_name_label.grid(row=3, column=2)
 
-        self.input_transaction_value_label = tk.Label(self, text="Enter Transaction value:")
+        self.input_transaction_value_label = ttk.Label(self, text="Enter Transaction value:")
         self.input_transaction_value_label.grid(row=9, column=1)
 
-        self.input_account_value_label = tk.Label(self, text="Select account:")
+        self.input_account_value_label = ttk.Label(self, text="Select account:")
         self.input_account_value_label.grid(row=6, column=1)
 
-        self.input_category_value_label = tk.Label(self, text="Select category:")
+        self.input_category_value_label = ttk.Label(self, text="Select category:")
         self.input_category_value_label.grid(row=6, column=2)
 
-        self.account_display_label = tk.Label(self, text="Current account value:")
+        self.account_display_label = ttk.Label(self, text="Current account value:")
         self.account_display_label.grid(row=1, column=2)
 
         self.account_display = tk.Label(self)
         self.account_display.grid(row=2, column=2)
 
-        self.transaction_label_display = tk.Label(self, text="Last Transaction:")
+        self.transaction_label_display = ttk.Label(self, text="Last Transaction:")
         self.transaction_label_display.grid(row=9, column=2)
 
         self.transaction_display = tk.Label(self)
         self.transaction_display.grid(row=10, column=2)
 
         # add buttons
-        self.add_account_btn = tk.Button(self, text="Add Account", command=self.check_account)
+        self.add_account_btn = ttk.Button(self, text="Add Account", command=self.check_account)
         self.add_account_btn.grid(row=5, column=1)
 
-        self.add_transaction_btn = tk.Button(self, text="Add Transaction", command=self.check_transation)
+        self.add_transaction_btn = ttk.Button(self, text="Add Transaction", command=self.check_transation)
         self.add_transaction_btn.grid(row=11, column=1)
 
-        self.add_category = tk.Button(self, text="Add category", command=self.check_category)
+        self.add_category = ttk.Button(self, text="Add category", command=self.check_category)
         self.add_category.grid(row=5, column=2)
         # del buttons
-        self.del_account_btn = tk.Button(self, text="Del Account", command=self.del_ac)
+        self.del_account_btn = ttk.Button(self, text="Del Account", command=self.del_ac)
         self.del_account_btn.grid(row=8, column=1)
 
-        self.del_category_btn = tk.Button(self, text="Del Category", command=self.del_cat)
+        self.del_category_btn = ttk.Button(self, text="Del Category", command=self.del_cat)
         self.del_category_btn.grid(row=8, column=2)
         # quit button
-        self.quit = tk.Button(self, text="QUIT", fg="red", command=self.master.destroy)
-        self.quit.grid(row=12, column=1)
+        self.space = tk.Label(self)
+        self.space.grid(row=12, column=1)
+        self.quit = ttk.Button(self, text="QUIT", command=self.master.destroy)
+        self.quit.grid(row=13, column=1)
 
-        self.transaction_view_btn = tk.Button(self, text="View all transactions", command=self.transaction_view)
+        self.transaction_view_btn = ttk.Button(self, text="View all transactions", command=self.transaction_view)
         self.transaction_view_btn.grid(row=11, column=2)
 
         def callback_event(e):
@@ -88,11 +91,14 @@ class App_GUI(tk.Frame):
         # listboxes
         self.account_listbox = tk.Listbox(self, height=5, selectmode='SINGLE', exportselection=0)
         self.account_listbox.grid(row=7, column=1)
+        self.account_listbox.select_set(first=0)
+
         self.account_listbox.bind('<<ListboxSelect>>', callback_event)
 
         self.category_listbox = tk.Listbox(self, height=5, selectmode='SINGLE')
         self.category_listbox.grid(row=7, column=2)
         # initialisation
+
         self.master.title('My wallet')
         wallet.category_list = self.read_from_file('categories.json')
         wallet.transaction_list = self.read_from_file('transactions.json')
@@ -118,18 +124,18 @@ class App_GUI(tk.Frame):
         else: self.error_window()
 
     def check_transation(self):
-        if (self.input_transaction_value.get()).isalpha():self.transaction_callback()
+        if (self.input_transaction_value.get()).isdigit():self.transaction_callback()
         else: self.error_window()
 
     def error_window(self):
             self.top = tk.Toplevel(self)
             self.top.title("Error")
-            self.label_info = tk.Label(self.top, text=("Wrong input,\n"
+            self.label_info = ttk.Label(self.top, text=("Wrong input,\n"
                                                        "Please check up input fields for validataion:\n"
-                                                       "name fields can't containe digits  and value field chars\n"
-                                                       "name field contains already existed name\n"))
+                                                       "-name fields can't containe digits  and value field chars\n"
+                                                       "-name field contains already existed name\n"))
             self.label_info.grid(row=1, column=1)
-            self.back_button = tk.Button(self.top, text="ok", command=self.top.destroy)
+            self.back_button = ttk.Button(self.top, text="ok", command=self.top.destroy)
             self.back_button.grid(row=2, column=1)
 
     def transaction_callback(self):
@@ -158,7 +164,7 @@ class App_GUI(tk.Frame):
     def display_transaction(self, transaction):
         self.transaction_display['text'] = "%s:" % transaction.transaction_name
         for k, v in wallet.transaction_list[transaction.transaction_name].items():
-            self.transaction_display['text'] += "%s:%s" % (k, v)
+            self.transaction_display['text'] += "\n%s:%s" % (k, v)
         self.transaction_display['fg'] = '#42f477'
         self.transaction_display['bg'] = "#000000"
 
@@ -198,16 +204,16 @@ class App_GUI(tk.Frame):
     def transaction_view(self):
         self.top = tk.Toplevel(self)
         self.top.title("view all transactions")
-        self.scroll = tk.Scrollbar(self.top)
+        self.scroll = ttk.Scrollbar(self.top)
         self.scroll.grid(row=1, column=2, sticky='NSW')
-        self.transaction_textbox = tk.Text(self.top, yscrollcommand=self.scroll.set)
+        self.transaction_textbox = tk.Text(self.top,font = "Arial", yscrollcommand=self.scroll.set)
         self.transaction_textbox.grid(row=1, column=1)
         for key, value in reversed(sorted(wallet.transaction_list.items())):
             self.transaction_textbox.insert(tk.END, "\n" + key + "\n")
             for k, v in value.items():
                 text_row = (" %s:%s\n") % (k, v)
                 self.transaction_textbox.insert(tk.END, text_row)
-        self.back_button = tk.Button(self.top, text="Back", command=self.top.destroy)
+        self.back_button = ttk.Button(self.top, text="Back", command=self.top.destroy)
         self.back_button.grid(row=2, column=1)
         self.scroll.config(command=self.transaction_textbox.yview)
 
