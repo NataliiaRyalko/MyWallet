@@ -165,21 +165,21 @@ class App_GUI(tk.Frame):
             for key in data_loaded:
                 self.category_listbox.insert(tk.END, key)
                 
-        return collections.OrderedDict(data_loaded)
+        return data_loaded
     
     def transaction_view(self):
         self.top  = tk.Toplevel(self)
-        self.top.title("test")
+        self.top.title("view all transactions")
         self.scroll = tk.Scrollbar(self.top)
         self.scroll.grid(row = 1, column = 2, sticky='NSW')
         self.transaction_textbox = tk.Text(self.top, yscrollcommand = self.scroll.set)
         self.transaction_textbox.grid(row=1, column=1)
-        for key,value in sorted(wallet.transaction_list).items():
+        for key,value in reversed(sorted(wallet.transaction_list.items())):
             self.transaction_textbox.insert(tk.END,"\n"+key+"\n")
             for k,v in value.items():
                 text_row = (" %s:%s\n") % (k,v)
                 self.transaction_textbox.insert(tk.END,text_row)
-        self.back_button = tk.Button(self.top, text = "Back",command  = self.top.destroy)
+        self.back_button = tk.Button(self.top, text = "Back",command = self.top.destroy)
         self.back_button.grid(row = 2,column = 1)
         self.scroll.config(command=self.transaction_textbox.yview)
             

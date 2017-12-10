@@ -8,9 +8,8 @@ This app helps to control your own finances, your wallet.
 """
 
 from datetime import datetime
-import ast
 from decimal import *
-import  collections
+
 class Account(object):
     # var name always is string, var value is number
     def __init__(self, name, value):
@@ -26,15 +25,15 @@ class Transaction(object):
         self.category = category
 
 class Wallet(object):
-    transaction_list = collections.OrderedDict()
-    account_list = collections.OrderedDict()
-    category_list = collections.OrderedDict()
+    transaction_list = {}
+    account_list = {}
+    category_list = {}
 
     def add_account(self,account):
         self.account_list[account.account_name] = str(account.account_value)
 
     def add_transaction(self, transaction):
-        tr_cell = self.transaction_list[transaction.transaction_name] = collections.OrderedDict()
+        tr_cell = self.transaction_list[transaction.transaction_name] = {}
         tr_cell["value"]  = str(transaction.transaction_value)
         tr_cell["category"] = transaction.category
         tr_cell['account'] = transaction.transaction_account
