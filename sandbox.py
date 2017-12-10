@@ -129,9 +129,8 @@ class App_GUI(tk.Frame):
 
     def display_transaction(self,transaction):
         self.transaction_display['text'] = "%s:" % transaction.transaction_name
-        l = [("\n%s:%s" % (x, y)) for x, y in wallet.transaction_list[transaction.transaction_name].items()]
-        for item in l:
-            self.transaction_display['text'] += "%s" % (item)
+        for k, v in wallet.transaction_list[transaction.transaction_name].items():
+            self.transaction_display['text'] += "%s:%s" % (k,v)
         self.transaction_display['fg'] = '#42f477'
         self.transaction_display['bg'] = "#000000"
 
@@ -175,7 +174,7 @@ class App_GUI(tk.Frame):
         self.scroll.grid(row = 1, column = 2, sticky='NSW')
         self.transaction_textbox = tk.Text(self.top, yscrollcommand = self.scroll.set)
         self.transaction_textbox.grid(row=1, column=1)
-        for key,value in wallet.transaction_list.items():
+        for key,value in sorted(wallet.transaction_list).items():
             self.transaction_textbox.insert(tk.END,"\n"+key+"\n")
             for k,v in value.items():
                 text_row = (" %s:%s\n") % (k,v)
