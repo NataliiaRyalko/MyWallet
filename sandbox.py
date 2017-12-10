@@ -170,7 +170,7 @@ class App_GUI(tk.Frame):
 
     def display_transaction(self, transaction):
         self.transaction_display['text'] = "%s:" % transaction
-        for k, v in wallet.transaction_list[transaction].items():
+        for k, v in sorted(wallet.transaction_list[transaction].items(),reverse=True):
             self.transaction_display['text'] += "\n%s:%s" % (k, v)
         self.transaction_display['fg'] = '#42f477'
         self.transaction_display['bg'] = "#000000"
