@@ -104,6 +104,9 @@ class App_GUI(tk.Frame):
         wallet.transaction_list = self.read_from_file('transactions.json')
         wallet.account_list = self.read_from_file('accounts.json')
 
+        self.account_listbox.select_set(0)
+        self.category_listbox.selection_set(0)
+
     def account_callback(self):
         entered_value = Decimal(self.input_account_value.get()).quantize(Decimal('0.01'), rounding=ROUND_DOWN)
         entered_name = self.input_account_name.get()
@@ -131,9 +134,9 @@ class App_GUI(tk.Frame):
             self.top = tk.Toplevel(self)
             self.top.title("Error")
             self.label_info = ttk.Label(self.top, text=("Wrong input,\n"
-                                                       "Please check up input fields for validataion:\n"
-                                                       "-name fields can't containe digits  and value field chars\n"
-                                                       "-name field contains already existed name\n"))
+                                                       "Please check input fields for correct fill in:\n"
+                                                       "-name fields can't containe digits  and value field can't chars\n"
+                                                       "-name fields can't contains of already existing object\n"))
             self.label_info.grid(row=1, column=1)
             self.back_button = ttk.Button(self.top, text="ok", command=self.top.destroy)
             self.back_button.grid(row=2, column=1)
@@ -147,8 +150,8 @@ class App_GUI(tk.Frame):
         wallet.add_transaction(transaction)
         self.display_transaction(transaction)
         wallet.account_list[selected_account] = wallet.spend(wallet.account_list[selected_account],
-                                                             wallet.transaction_list[transaction.transaction_name][
-                                                                 "value"])
+                                                             wallet.transaction_list[
+                                                                 transaction.transaction_name]["value"])
         self.display_account(wallet.account_list[selected_account])
         print(wallet.transaction_list, 'this is transaction list')
         self.save_to_file('transactions.json', wallet.transaction_list)
@@ -208,7 +211,7 @@ class App_GUI(tk.Frame):
         self.scroll.grid(row=1, column=2, sticky='NSW')
         self.transaction_textbox = tk.Text(self.top,font = "Arial", yscrollcommand=self.scroll.set)
         self.transaction_textbox.grid(row=1, column=1)
-        for key, value in reversed(sorted(wallet.transaction_list.items())):
+        for key, value in sorted(wallet.transaction_list.items(),reverse=True):
             self.transaction_textbox.insert(tk.END, "\n" + key + "\n")
             for k, v in value.items():
                 text_row = (" %s:%s\n") % (k, v)
