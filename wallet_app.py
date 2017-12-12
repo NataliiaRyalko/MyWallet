@@ -9,6 +9,7 @@ This app helps to control your own finances, your wallet.
 
 from datetime import datetime
 from decimal import *
+import json
 # from collections import OrderedDict
 
 class Account(object):
@@ -44,8 +45,14 @@ class Wallet(object):
         decimal_transaction = Decimal(transaction).quantize(Decimal('0.01'), rounding=ROUND_DOWN)
         return  str(decimal_account-decimal_transaction)
 
-    
+    def save_to_file(file_name, data):
+        with open(file_name, "w") as outfile:
+            json.dump(data, outfile)
 
+    def read_from_file(self, file_name):
+        with open(file_name) as data_file:
+            data_loaded = json.load(data_file)
+        return data_loaded
 wallet = Wallet()
 
 
