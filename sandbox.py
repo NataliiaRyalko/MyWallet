@@ -76,9 +76,10 @@ class App_GUI(tk.Frame):
 
         self.del_category_btn = ttk.Button(self, text="Del Category", command=self.del_cat)
         self.del_category_btn.grid(row=8, column=2)
+
+        self.del_transaction_btn = ttk.Button(self,text="Del last transaction",command=self.del_tr )
+        self.del_transaction_btn.grid(row=12, column=2)
         # quit button
-        self.space = tk.Label(self)
-        self.space.grid(row=12, column=1)
         self.quit = ttk.Button(self, text="QUIT", command=self.master.destroy)
         self.quit.grid(row=13, column=1)
 
@@ -90,16 +91,10 @@ class App_GUI(tk.Frame):
         self.account_listbox.grid(row=7, column=1)
         self.account_listbox.select_set(first=0)
 
-
-
         self.category_listbox = tk.Listbox(self, height=5, selectmode='SINGLE')
         self.category_listbox.grid(row=7, column=2)
         # initialisation
-
         self.master.title('My wallet')
-        wallet.category_list = wallet.read_from_file('categories.json')
-        wallet.transaction_list = wallet.read_from_file('transactions.json')
-        wallet.account_list = wallet.read_from_file('accounts.json')
 
         for key in wallet.account_list:
             self.account_listbox.insert(tk.END, key)
@@ -117,15 +112,7 @@ class App_GUI(tk.Frame):
         callback_event(e=None)
         self.display_transaction((sorted(wallet.transaction_list.keys(), reverse=True))[0])
         self.account_listbox.bind('<<ListboxSelect>>', callback_event)
-
-    def account_callback(self):
-        entered_value = Decimal(self.input_account_value.get()).quantize(Decimal('0.01'), rounding=ROUND_DOWN)
-        entered_name = self.input_account_name.get()
-        account = Account(entered_name, entered_value)
-        wallet.add_account(account)
-        self.display_account(wallet.account_list[entered_name])
-        self.account_listbox.insert(tk.END, entered_name)
-
+#--------------------------------------------------------------------------------------------
     def check_account(self):
         if ((self.input_account_value.get()).isdigit() and
                 (self.input_account_name.get()).isalpha() and
@@ -151,6 +138,15 @@ class App_GUI(tk.Frame):
             self.label_info.grid(row=1, column=1)
             self.back_button = ttk.Button(self.top, text="ok", command=self.top.destroy)
             self.back_button.grid(row=2, column=1)
+
+
+    def account_callback(self):
+        entered_value = Decimal(self.input_account_value.get()).quantize(Decimal('0.01'), rounding=ROUND_DOWN)
+        entered_name = self.input_account_name.get()
+        account = Account(entered_name, entered_value)
+        wallet.add_account(account)
+        self.display_account(wallet.account_list[entered_name])
+        self.account_listbox.insert(tk.END, entered_name)
 
     def transaction_callback(self):
 
@@ -182,21 +178,25 @@ class App_GUI(tk.Frame):
         self.transaction_display['fg'] = '#42f477'
         self.transaction_display['bg'] = "#000000"
 
-    def del_ac(self):
-        del (wallet.account_list[self.account_listbox.get(self.account_listbox.curselection(), last=None)])
-        wallet.save_to_file('accounts.json', wallet.account_list)
-        self.account_listbox.delete(self.account_listbox.curselection(), last=None)
-
-    def del_cat(self):
-        del (wallet.category_list[self.category_listbox.get(self.category_listbox.curselection(), last=None)])
-        wallet.save_to_file('categories.json', wallet.category_list)
-        self.category_listbox.delete(self.category_listbox.curselection()[0])
-
     def display_account(self, account):
         self.account_display['text'] = "%s UAH" % account
         self.account_display['fg'] = '#42f477'
         self.account_display['bg'] = "#000000"
 
+    def del_ac(self):
+        del(wallet.account_list[self.account_listbox.get(self.account_listbox.curselection(), last=None)])
+        wallet.save_to_file('accounts.json', wallet.account_list)
+        self.account_listbox.delete(self.account_listbox.curselection(), last=None)
+
+    def del_cat(self):
+        del(wallet.category_list[self.category_listbox.get(self.category_listbox.curselection(), last=None)])
+        wallet.save_to_file('categories.json', wallet.category_list)
+        self.category_listbox.delete(self.category_listbox.curselection()[0])
+
+    def del_tr(self):
+        del(wallet.transaction_list[(sorted(wallet.transaction_list.keys(), reverse=True))[0]])
+        wallet.save_to_file('transactions.json',wallet.transaction_list)
+        self.display_transaction(sorted(wallet.transaction_list.keys(), reverse=True)[0])
 
     def transaction_view(self):
         self.top = tk.Toplevel(self)

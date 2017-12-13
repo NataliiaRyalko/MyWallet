@@ -45,7 +45,7 @@ class Wallet(object):
         decimal_transaction = Decimal(transaction).quantize(Decimal('0.01'), rounding=ROUND_DOWN)
         return  str(decimal_account-decimal_transaction)
 
-    def save_to_file(file_name, data):
+    def save_to_file(self,file_name, data):
         with open(file_name, "w") as outfile:
             json.dump(data, outfile)
 
@@ -53,6 +53,9 @@ class Wallet(object):
         with open(file_name) as data_file:
             data_loaded = json.load(data_file)
         return data_loaded
+
 wallet = Wallet()
 
-
+wallet.category_list = wallet.read_from_file('categories.json')
+wallet.transaction_list = wallet.read_from_file('transactions.json')
+wallet.account_list = wallet.read_from_file('accounts.json')
