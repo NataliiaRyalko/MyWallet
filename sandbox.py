@@ -132,7 +132,7 @@ class App_GUI(tk.Frame):
             self.top = tk.Toplevel(self)
             self.top.title("Error")
             self.label_info = ttk.Label(self.top, text=("Wrong input,\n"
-                                                       "Please check input fields for correct fill in:\n"
+                                                       "Please check input fields for correct filling in:\n"
                                                        "-name fields can't containe digits  and value field can't chars\n"
                                                        "-name fields can't contains of already existing object\n"))
             self.label_info.grid(row=1, column=1)
@@ -205,11 +205,15 @@ class App_GUI(tk.Frame):
         self.scroll.grid(row=1, column=2, sticky='NSW')
         self.transaction_textbox = tk.Text(self.top,font = "Arial", width ="30", yscrollcommand=self.scroll.set)
         self.transaction_textbox.grid(row=1, column=1)
+        total = 0
         for key, value in sorted(wallet.transaction_list.items(),reverse=True):
             self.transaction_textbox.insert(tk.END, "\n" + key + ":\n")
             for k, v in value.items():
                 text_row = (" %s:%s\n") % (k, v)
+                if k =="value":
+                    total += Decimal(v).quantize(Decimal('0.01'), rounding=ROUND_DOWN)
                 self.transaction_textbox.insert(tk.END, text_row)
+        self.transaction_textbox.insert(tk.END,('Total: %s UAH' % total))
         self.back_button = ttk.Button(self.top, text="Back", command=self.top.destroy)
         self.back_button.grid(row=2, column=1)
         self.scroll.config(command=self.transaction_textbox.yview)

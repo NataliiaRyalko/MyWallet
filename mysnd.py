@@ -1,4 +1,5 @@
-#L = map(lambda x:2**x,range(7))
+"""
+L = map(lambda x:2**x,range(7))
 x=5
 L =[]
 for i in range(7):
@@ -7,7 +8,7 @@ for i in range(7):
 if 2**x in L:
 		print('at index',L.index(2**x))
 
-'''
+
 for i in range(len(L)):
 	if 2**x == L[i]:
 		print('at index',i)
@@ -162,7 +163,8 @@ listbox.pack(side=LEFT, fill=BOTH)
 scrollbar.config(command=listbox.yview)
 
 mainloop()
-'''
+
 d = {1:11,2:22}
 if ("10").isdigit():
 	print(10)
+"""
