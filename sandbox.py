@@ -14,7 +14,7 @@ class App_GUI(tk.Frame):
 
     def create_widgets(self):
 
-        # input fields
+        # input fields-----------------------------------------------------------------------------
         self.input_transaction_value = ttk.Entry(self)
         self.input_transaction_value.grid(row=10, column=1)
         self.input_transaction_value.insert(0, "10")
@@ -30,7 +30,7 @@ class App_GUI(tk.Frame):
         self.input_category_name = ttk.Entry(self)
         self.input_category_name.grid(row=4, column=2)
         self.input_category_name.insert(0, "transport")
-        # lebels
+        # lebels------------------------------------------------------------------------------
         self.input_account_name_label = ttk.Label(self, text="Enter Account name:")
         self.input_account_name_label.grid(row=1, column=1)
 
@@ -61,7 +61,7 @@ class App_GUI(tk.Frame):
         self.transaction_display = tk.Label(self)
         self.transaction_display.grid(row=10, column=2)
 
-        # add buttons
+        # add buttons----------------------------------------------------------------------
         self.add_account_btn = ttk.Button(self, text="Add Account", command=self.check_account)
         self.add_account_btn.grid(row=5, column=1)
 
@@ -70,7 +70,7 @@ class App_GUI(tk.Frame):
 
         self.add_category = ttk.Button(self, text="Add category", command=self.check_category)
         self.add_category.grid(row=5, column=2)
-        # del buttons
+        # del buttons-------------------------------------------------------------------
         self.del_account_btn = ttk.Button(self, text="Del Account", command=self.del_ac)
         self.del_account_btn.grid(row=8, column=1)
 
@@ -79,21 +79,21 @@ class App_GUI(tk.Frame):
 
         self.del_transaction_btn = ttk.Button(self,text="Del last transaction",command=self.del_tr )
         self.del_transaction_btn.grid(row=12, column=2)
-        # quit button
+        # 0ther buttons--------------------------------------------------------
         self.quit = ttk.Button(self, text="QUIT", command=self.master.destroy)
         self.quit.grid(row=13, column=1)
 
         self.transaction_view_btn = ttk.Button(self, text="View all transactions", command=self.transaction_view)
         self.transaction_view_btn.grid(row=11, column=2)
 
-        # listboxes
+        # listboxes---------------------------------------------------------
         self.account_listbox = tk.Listbox(self, height=5, selectmode='SINGLE', exportselection=0)
         self.account_listbox.grid(row=7, column=1)
         self.account_listbox.select_set(first=0)
 
         self.category_listbox = tk.Listbox(self, height=5, selectmode='SINGLE')
         self.category_listbox.grid(row=7, column=2)
-        # initialisation
+        # initialisation---------------------------------------------------------------------------
         self.master.title('My wallet')
 
         for key in wallet.account_list:
@@ -198,13 +198,21 @@ class App_GUI(tk.Frame):
         wallet.save_to_file('transactions.json',wallet.transaction_list)
         self.display_transaction(sorted(wallet.transaction_list.keys(), reverse=True)[0])
 
-    def transaction_view(self):
+    def transaction_window(self):
+
         self.top = tk.Toplevel(self)
         self.top.title("View all transactions")
         self.scroll = ttk.Scrollbar(self.top)
-        self.scroll.grid(row=1, column=2, sticky='NSW')
+        self.scroll.grid(row=2, column=2, sticky='NSW')
         self.transaction_textbox = tk.Text(self.top,font = "Arial", width ="30", yscrollcommand=self.scroll.set)
-        self.transaction_textbox.grid(row=1, column=1)
+        self.transaction_textbox.grid(row=2, column=1)
+        self.back_button = ttk.Button(self.top, text="Back", command=self.top.destroy)
+        self.back_button.grid(row=3, column=1)
+        self.scroll.config(command=self.transaction_textbox.yview)
+
+
+    def transaction_view(self):
+        self.transaction_window()
         total = 0
         for key, value in sorted(wallet.transaction_list.items(),reverse=True):
             self.transaction_textbox.insert(tk.END, "\n" + key + ":\n")
@@ -213,10 +221,7 @@ class App_GUI(tk.Frame):
                 if k =="value":
                     total += Decimal(v).quantize(Decimal('0.01'), rounding=ROUND_DOWN)
                 self.transaction_textbox.insert(tk.END, text_row)
-        self.transaction_textbox.insert(tk.END,('Total: %s UAH' % total))
-        self.back_button = ttk.Button(self.top, text="Back", command=self.top.destroy)
-        self.back_button.grid(row=2, column=1)
-        self.scroll.config(command=self.transaction_textbox.yview)
+        self.transaction_textbox.insert(tk.END, ('Total: %s UAH' % total))
 
 
 root = tk.Tk()
