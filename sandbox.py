@@ -211,7 +211,7 @@ class App_GUI(tk.Frame):
         self.scroll.config(command=self.transaction_textbox.yview)
         self.entry = tk.Entry(self.top,width=38)
         self.entry.grid(row=1,column=1)
-        self.search_button = ttk.Button(self.top,text="Search")
+        self.search_button = ttk.Button(self.top,text="Search",command=self.search)
         self.search_button.grid(row=1,column=2)
 
     def transaction_view(self):
@@ -226,7 +226,18 @@ class App_GUI(tk.Frame):
                 self.transaction_textbox.insert(tk.END, text_row)
         self.transaction_textbox.insert(tk.END, ('Total: %s UAH' % total))
 
-
+    def search(self):
+        filter = self.entry.get()
+        search_list = []
+        for key in wallet.transaction_list.keys():
+            if filter in key:
+             search_list.append(wallet.transaction_list[key])
+        else:
+            for item in wallet.transaction_list.values():
+                if filter in item.values():
+                    print(item)
+                    print("another ok")
+        print(search_list)
 root = tk.Tk()
 app = App_GUI(master=root)
 app.mainloop()
