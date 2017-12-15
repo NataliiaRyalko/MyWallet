@@ -209,7 +209,10 @@ class App_GUI(tk.Frame):
         self.back_button = ttk.Button(self.top, text="Back", command=self.top.destroy)
         self.back_button.grid(row=3, column=1)
         self.scroll.config(command=self.transaction_textbox.yview)
-
+        self.entry = tk.Entry(self.top,width=38)
+        self.entry.grid(row=1,column=1)
+        self.search_button = ttk.Button(self.top,text="Search")
+        self.search_button.grid(row=1,column=2)
 
     def transaction_view(self):
         self.transaction_window()
