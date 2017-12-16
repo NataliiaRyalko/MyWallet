@@ -83,7 +83,7 @@ class App_GUI(tk.Frame):
         self.quit = ttk.Button(self, text="QUIT", command=self.master.destroy)
         self.quit.grid(row=13, column=1)
 
-        self.transaction_view_btn = ttk.Button(self, text="View all transactions", command=self.transaction_view)
+        self.transaction_view_btn = ttk.Button(self, text="View all transactions", command=self.display_list)
         self.transaction_view_btn.grid(row=11, column=2)
 
         # listboxes---------------------------------------------------------
@@ -208,36 +208,42 @@ class App_GUI(tk.Frame):
         self.transaction_textbox.grid(row=2, column=1)
         self.back_button = ttk.Button(self.top, text="Back", command=self.top.destroy)
         self.back_button.grid(row=3, column=1)
+        self.label = tk.Label(self.top)
+        self.label.grid(row=2, column=3)
         self.scroll.config(command=self.transaction_textbox.yview)
         self.entry = tk.Entry(self.top,width=38)
         self.entry.grid(row=1,column=1)
         self.search_button = ttk.Button(self.top,text="Search",command=self.search)
-        self.search_button.grid(row=1,column=2)
+        self.search_button.grid(row=1,column=3)
 
-    def transaction_view(self):
-        self.transaction_window()
+    def transaction_view(self,list):
         total = 0
-        for key, value in sorted(wallet.transaction_list.items(),reverse=True):
+        for key, value in sorted(list,reverse=True):
             self.transaction_textbox.insert(tk.END, "\n" + key + ":\n")
             for k, v in value.items():
                 text_row = (" %s:%s\n") % (k, v)
                 if k =="value":
                     total += Decimal(v).quantize(Decimal('0.01'), rounding=ROUND_DOWN)
                 self.transaction_textbox.insert(tk.END, text_row)
-        self.transaction_textbox.insert(tk.END, ('Total: %s UAH' % total))
+        self.label["text"] = 'Total:\n %s UAH' % total
+        self.label['fg'] = '#42f477'
+        self.label['bg'] = "#000000"
+
+    def display_list(self):
+        self.transaction_window()
+        self.transaction_view(wallet.transaction_list.items())
 
     def search(self):
-        filter = self.entry.get()
-        search_list = []
-        for key in wallet.transaction_list.keys():
-            if filter in key:
-             search_list.append(wallet.transaction_list[key])
-        else:
-            for item in wallet.transaction_list.values():
-                if filter in item.values():
-                    print(item)
-                    print("another ok")
-        print(search_list)
+        filt_word = self.entry.get()
+        filter_list = []
+        for item in wallet.transaction_list.items():
+            if filt_word in item[0]:
+                filter_list.append(item)
+            elif filt_word in item[1].values():
+                filter_list.append(item)
+            else: print("fail")
+        self.transaction_textbox.delete("1.0",tk.END)
+        self.transaction_view(filter_list)
 root = tk.Tk()
 app = App_GUI(master=root)
 app.mainloop()
