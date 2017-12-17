@@ -10,7 +10,7 @@ This app helps to control your own finances, your wallet.
 from datetime import datetime
 from decimal import *
 import json
-# from collections import OrderedDict
+
 
 class Account(object):
     # var name always is string, var value is number
