@@ -256,9 +256,11 @@ class AppGUI(Frame):
         for item in wallet.transaction_list.items():
             if filt_word in item[0]:
                 filter_list.append(item)
-            elif filt_word in item[1].values():
-                filter_list.append(item)
-        self.transaction_textbox.delete("1.0",END)
+            else:
+                for value in item[1].values():
+                    if filt_word in value:
+                        filter_list.append(item)
+        self.transaction_textbox.delete("1.0", END)
         self.transaction_view(filter_list)
 
     def __init__(self, master=None):
