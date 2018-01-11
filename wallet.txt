@@ -37,4 +37,21 @@ Class SpendCategory:
      total spends planed(count all spends in categories from plan)
      total spends fact(count all from fact_cat)
 
+class Account:
+    field account_name
+    field account_value
 
+class Transaction:
+    transaction_name
+    transaction_value
+    transaction_account = Account
+    transaction_date
+ func set_spend:
+    spend = transaction_account.value-transaction_value
+    return spend
+
+class Wallet:
+    account = Account
+    transaction = Transaction
+    transaction.transaction_account = account
+    account.account_value = transaction.set_spend()
