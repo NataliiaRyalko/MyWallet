@@ -8,7 +8,8 @@ Just clone repo to your machine, olso you need tkinter module for your python in
 ###   sudo apt-get install python3-tk  for Ubuntu
 
 ## Run
-go to root of the project and type 
+go to root of the project and type python sandbox.py:
+#### cd ~/.../MyWallet
 ### python sandbox.py
 in console
 
