@@ -10,7 +10,7 @@ Just clone repo to your machine, olso you need tkinter module for your python in
 ## Run
 go to root of the project and type python sandbox.py in console:
 
-#### cd ~/.../MyWallet
+#### cd ~/path_to_project/MyWallet
 ### python sandbox.py
 
 
