@@ -1,5 +1,5 @@
 # MyWallet
-I will create a pocket app for control your own finances
+Simple tkinter-gui app for finances control
 
 ## Install
 Just clone repo to your machine, olso you need tkinter module for your python interpreter
