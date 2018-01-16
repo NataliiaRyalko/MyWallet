@@ -16,6 +16,6 @@ go to root of the project and type python sandbox.py in console:
 
 ### Some details of realization
 
-Project use tkinter GUI module, the core of the project is wallet_app.py, it's primary logic of app, sandbox.py is run app with gui, json files work as db for app. 
+Project use tkinter GUI module, the core of the project is wallet_app.py, it's primary logic of app, sandbox.py file runs app with gui, json files work as db for app. 
 
 ### Give feedback...please
