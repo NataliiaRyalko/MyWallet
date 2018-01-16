@@ -4,8 +4,10 @@ I will create a pocket app for control your own finances
 ## Install
 Just clone repo to your machine, olso you need tkinter module for your python interpreter
 
+for Ubuntu:
 ###   sudo apt-get install python-tk or 
-###   sudo apt-get install python3-tk  for Ubuntu
+###   sudo apt-get install python3-tk  
+for Ubuntu
 
 ## Run
 go to root of the project and type python sandbox.py in console:
