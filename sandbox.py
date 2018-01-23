@@ -113,7 +113,7 @@ class AppGUI(Frame):
                 wallet.account_list[self.account_listbox.get(self.account_listbox.curselection(), last=None)])
 
         callback_event(e=None)
-        self.display_transaction((sorted(wallet.transaction_list.keys(), reverse=True))[0])
+        #self.display_transaction((sorted(wallet.transaction_list.keys(), reverse=True))[0])
         self.account_listbox.bind('<<ListboxSelect>>', callback_event)
 #--------------------------------------------------------------------------------------------
 
