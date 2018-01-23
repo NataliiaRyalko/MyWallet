@@ -161,7 +161,7 @@ class AppGUI(Frame):
             self.update_window(account)
         else:self.account_listbox.insert(END, entered_name)
         wallet.add_account(account)
-        self.display_account(wallet.account_list[entered_name])
+        #self.display_account(wallet.account_list[entered_name])
         wallet.save_to_file('accounts.json', wallet.account_list)
 
 
@@ -189,11 +189,13 @@ class AppGUI(Frame):
         wallet.save_to_file('categories.json', wallet.category_list)
 
     def display_transaction(self, transaction):
-        self.transaction_display['text'] = "%s:" % transaction
-        for k, v in sorted(wallet.transaction_list[transaction].items(),reverse=True):
-            self.transaction_display['text'] += "\n%s:%s" % (k, v)
-        self.transaction_display['fg'] = '#42f477'
-        self.transaction_display['bg'] = "#000000"
+         if transaction != "":
+             self.transaction_display['text'] = "%s:" % transaction
+             for k, v in sorted(wallet.transaction_list[transaction].items(),reverse=True):
+                 self.transaction_display['text'] += "\n%s:%s" % (k, v)
+         else: self.transaction_display['text'] = "List is empty"
+         self.transaction_display['fg'] = '#42f477'
+         self.transaction_display['bg'] = "#000000"
 
     def display_account(self, account):
         self.account_display['text'] = "%s UAH" % account
@@ -213,7 +215,10 @@ class AppGUI(Frame):
     def del_tr(self):
         del(wallet.transaction_list[(sorted(wallet.transaction_list.keys(), reverse=True))[0]])
         wallet.save_to_file('transactions.json',wallet.transaction_list)
-        self.display_transaction(sorted(wallet.transaction_list.keys(), reverse=True)[0])
+        if bool(wallet.transaction_list):
+            self.display_transaction(sorted(wallet.transaction_list.keys(), reverse=True)[0])
+        else:
+            self.display_transaction("")
 
     def transaction_window(self):
 
